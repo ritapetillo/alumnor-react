@@ -1,0 +1,10 @@
+import IUser from "../../IUser";
+
+interface IAuthInitialState {
+  user?: IUser | {};
+  isAuth: boolean;
+  isLoading: boolean;
+  errorMsg: string;
+}
+
+export default IAuthInitialState;
