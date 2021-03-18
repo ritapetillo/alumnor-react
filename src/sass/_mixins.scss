@@ -1,0 +1,44 @@
+@use './variables' as *;
+@use './colors' as c;
+
+
+@mixin button($border-color, $background) {
+  padding: 0px 20px;
+  height: 40px;
+  color: black;
+  background-color: $background;
+  vertical-align: middle;
+  font-family: $font-family-roboto;
+  font-weight: 700;
+  font-size: 16px;
+  border: 1px solid $border-color;
+  cursor: pointer;
+  position: relative;
+  border-radius: 5px;
+  outline: none;
+  &:hover {
+    background-color: rgb(242, 242, 242);
+    border-color: rgb(242, 242, 242);
+  }
+}
+
+@mixin input-form {
+  border: 1px solid rgb(220, 222, 225);
+  border-radius: 4px;
+  color: rgb(0, 35, 51);
+  cursor: text;
+  font-size: 15px;
+  height: 40px;
+  line-height: 20px;
+  padding: 0px 10px;
+  &:focus{
+      border-color: c.$color-gray;
+      outline: none;
+  }
+}
+
+@mixin form-separator {
+  width: 100%;
+  height: 2px;
+  background-color: c.$color-gray;;
+}

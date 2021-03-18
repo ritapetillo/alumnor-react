@@ -1,0 +1,33 @@
+@use '../../sass//colors' as *;
+
+.modal {
+  width: 100vw;
+  height: calc(100vh - 40px);
+  background-color: rgba(0, 0, 0, 0.747);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  &__body {
+    height: 80vh;
+    width: 80vw;
+    background-color: rgb(253, 253, 253);
+    border-radius: 10px;
+    overflow: hidden;
+    position: absolute;
+    &__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      font-size: 20px;
+      svg {
+        cursor: pointer;
+        &:hover {
+          color: $color-gray;
+        }
+      }
+    }
+  }
+}

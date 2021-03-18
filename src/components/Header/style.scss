@@ -1,0 +1,87 @@
+@use '../../sass/variables' as *;
+@use '../../sass/colors' as *;
+@use '../../sass/mixins' as *;
+
+.header {
+  font-family: $font-family-roboto;
+  background-color: $color-blue-dark-primary;
+  height: 80px;
+  padding: 5px 20px;
+  box-sizing: border-box;
+  &__navbar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: rgb(233, 232, 232);
+
+    &-logo {
+      font-family: $font-family-rubik;
+      font-size: 28px;
+      font-weight: 900;
+      margin-right: 20px;
+    }
+    &-link {
+      color: $color-blue-primary;
+      font-weight: 600;
+      margin-right: 30px;
+      svg {
+        margin-left: 5px;
+        color: rgb(233, 232, 232);
+        font-size: 12px;
+        cursor: pointer;
+      }
+    }
+    &-search {
+      border: 1px solid rgb(233, 232, 232);
+      width: 30vw;
+      min-width: 150px;
+      height: 30px;
+      border-radius: 5px;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      svg {
+        font-size: 18px;
+        margin-left: 5px;
+      }
+
+      input {
+        background-color: transparent;
+        outline: none;
+        border: none;
+        width: 100%;
+        margin-left: 5px;
+        color: rgb(233, 232, 232);
+        font-size: 15px;
+        font-weight: 500;
+        &::placeholder {
+          color: rgb(233, 232, 232);
+          font-family: $font-family-rubik;
+          font-size: 15px;
+        }
+        &:focus::placeholder {
+          color: transparent;
+        }
+      }
+    }
+
+    &-auth {
+      margin-left: auto;
+      span {
+        margin: 0 10px;
+        font-weight: 700;
+        cursor: pointer;
+        &:first-child {
+          &:hover {
+            color: $color-blue-primary;
+          }
+        }
+        &:last-child {
+          @include button($color-blue-primary, $color-blue-primary);
+          display: inline-block;
+          line-height: 40px;
+        }
+      }
+    }
+  }
+}

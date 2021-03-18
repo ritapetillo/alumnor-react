@@ -1,0 +1,116 @@
+@use '../../sass/mixins' as *;
+@use '../../sass/variables' as *;
+@use '../../sass/colors' as c;
+
+.login {
+  font-family: $font-family-roboto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+  gap: 20px;
+  &__left {
+    min-width: 200px;
+    width: 30%;
+    height: 200px;
+    background-color: #00204a;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    &-divider{
+        height: 8px;
+        width: 60%;
+        background-color: c.$color-blue-primary;
+        margin-left: 20px;
+        border-radius: 5px;
+        margin-top: -10px;
+        @media screen and (max-width: 728px) {
+      width: 88%;
+     align-self: center;
+    }
+    }
+    @media screen and (max-width: 728px) {
+      width: 100%;
+      height: fit-content;
+      justify-content: center;
+    }
+
+    h4 {
+      font-size: 28px;
+      color: white;
+      padding: 0 20px;
+    }
+  }
+  &__right {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 5px 20px;
+    h4{
+        font-size: 28px;
+    }
+    input {
+      margin-bottom: 10px;
+      @include input-form;
+    }
+    button {
+      margin: 5px 0;
+      width: 100%;
+      @include button(c.$color-gray, white);
+      &:last-child {
+        @include button(#43b5fd, c.$color-blue-primary);
+        font-size: 20px;
+        color: white;
+        &:hover {
+          background-color: c.$color-blue-dark-primary;
+        }
+      }
+
+      & > img {
+        position: absolute;
+        left: 20px;
+      }
+    }
+  }
+  &__form-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 450px;
+    .form-separator {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      @include form-separator;
+      position: relative;
+      span {
+        z-index: 33;
+        position: absolute;
+        right: 50%;
+        top: -500%;
+        background-color: white;
+        padding: 0px 4px;
+      }
+    }
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  &__sign-up {
+    margin-top: 30px;
+    text-align: center;
+  }
+  &__link{
+      margin-top:15px;
+      cursor: pointer;
+      color: c.$color-blue-dark-primary;
+      font-weight: 600;
+      &:hover{
+         opacity: 80%;
+      }
+  }
+}
