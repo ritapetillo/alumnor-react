@@ -12,9 +12,9 @@ export default {
 
 const Template: Story<IModalProps> = (args) => <Modal {...args} />;
 
-export const Open = Template.bind({});
-Open.args = {
- component:{}
+export const SignUp = Template.bind({});
+SignUp.args = {
+ component:'signup'
 };
 
 

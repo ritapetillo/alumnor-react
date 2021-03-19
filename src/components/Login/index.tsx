@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./style.scss";
 import facebook from "../../assets/icons/facebook.svg";
 import google from "../../assets/icons/google.svg";
+import { useDispatch } from "react-redux";
+import { loginAction } from "../../actions/authActions";
+import config from "../../config";
 
 const Login = () => {
+  const email = useRef<HTMLInputElement | null>(null);
+  const password = useRef<HTMLInputElement | null>(null);
+  const dispatch = useDispatch();
+
+  const handleLogin = async (e: React.FormEvent<EventTarget>) => {
+    e.preventDefault();
+    console.log("ciao");
+    const userEmail: string = email.current!.value;
+    const userPass: string = password.current!.value;
+    const login = dispatch(loginAction(userEmail, userPass));
+  };
   return (
     <div className="login">
       <div className="login__left">
@@ -16,10 +30,20 @@ const Login = () => {
         <div className="login__form-wrapper">
           <form className="login__form">
             <h4>Login</h4>
-            <button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.assign(`${config.BE_URI}/auth/facebook`);
+              }}
+            >
               <img src={facebook} alt="" /> Continue with Facebook
             </button>
-            <button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.assign(`${config.BE_URI}/auth/google`);
+              }}
+            >
               <img src={google} alt="" />
               Continue with Google
             </button>
@@ -30,13 +54,17 @@ const Login = () => {
               type="Email address"
               className="login__input-field"
               placeholder="Email Address"
+              ref={email}
             />
             <input
               type="Password"
               className="login__input-field"
               placeholder="Passwrod"
+              ref={password}
             />
-            <button className="login__form-button">Sign In</button>
+            <button className="login__form-button" onClick={handleLogin}>
+              Sign In
+            </button>
           </form>
           <span className="login__link">Forgot password?</span>
           <div className="login__sign-up">

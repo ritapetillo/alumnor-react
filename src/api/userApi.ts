@@ -26,7 +26,7 @@ export const getCurrentUserApi = async () => {
     };
     const res = await axios(axiosConfig);
     const data = await res.data;
-    if (data) return data;
+    if (data) return data.user;
     else return null;
   } catch (err) {
     return null;

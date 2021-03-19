@@ -1,6 +1,7 @@
 @use '../../sass/variables' as *;
 @use '../../sass/colors' as *;
 @use '../../sass/mixins' as *;
+@use '../../sass/breakpoints' as *;
 
 .header {
   font-family: $font-family-roboto;
@@ -12,7 +13,7 @@
     height: 100%;
     display: flex;
     align-items: center;
-    color: rgb(233, 232, 232);
+    color: $color-white-light;
 
     &-logo {
       font-family: $font-family-rubik;
@@ -26,13 +27,13 @@
       margin-right: 30px;
       svg {
         margin-left: 5px;
-        color: rgb(233, 232, 232);
+        color: $color-white-light;
         font-size: 12px;
         cursor: pointer;
       }
     }
     &-search {
-      border: 1px solid rgb(233, 232, 232);
+      border: 1px solid $color-white-light;
       width: 30vw;
       min-width: 150px;
       height: 30px;
@@ -40,6 +41,7 @@
       padding: 5px;
       display: flex;
       align-items: center;
+
       svg {
         font-size: 18px;
         margin-left: 5px;
@@ -51,11 +53,11 @@
         border: none;
         width: 100%;
         margin-left: 5px;
-        color: rgb(233, 232, 232);
+        color: $color-white-light;
         font-size: 15px;
         font-weight: 500;
         &::placeholder {
-          color: rgb(233, 232, 232);
+          color: $color-white-light;
           font-family: $font-family-rubik;
           font-size: 15px;
         }
@@ -67,6 +69,10 @@
 
     &-auth {
       margin-left: auto;
+      align-items: center;
+      display: flex;
+      position: relative;
+
       span {
         margin: 0 10px;
         font-weight: 700;
@@ -80,6 +86,91 @@
           @include button($color-blue-primary, $color-blue-primary);
           display: inline-block;
           line-height: 40px;
+        }
+      }
+      &-avatar {
+        @include image-round(40px);
+        display: inline-block;
+        margin-left: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+  &__dropdown {
+    width: 10vw;
+    min-width: 200px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 10px;
+    top: 50px;
+    right: 10px;
+    background-color: $color-white-light;
+    height: fit-content;
+    color: black;
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 6px 9px rgb(0 0 0 / 20%);
+    border-radius: 5px;
+    ul {
+      list-style-type: none;
+      padding-left: 0px;
+      margin-left: -40px;
+      li {
+        margin-top: 10px;
+        cursor: pointer;
+        &:hover {
+          color: $color-gray;
+        }
+      }
+    }
+    &-profile-avatar {
+      @include image-round(72px);
+      margin: 0 auto;
+    }
+    &-profile {
+      text-align: center;
+      img {
+        align-self: center;
+      }
+      &-button {
+        @include button($color-blue-primary, $color-blue-primary);
+        height: 30px !important;
+        margin-top: -10px;
+      }
+    }
+    h5 {
+      margin-top: -20px;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 14px;
+    }
+  }
+}
+@media screen and (max-width: $screen-sm) {
+  .header {
+    &__navbar {
+      &-search {
+        display: none;
+      }
+      &-auth {
+        margin-left: auto;
+        span {
+          font-weight: 700;
+          cursor: pointer;
+          &:first-child {
+            @include button($color-blue-primary, $color-blue-primary);
+            display: inline-block;
+            font-size: 12px;
+            line-height: 40px;
+            padding: 0 10px;
+            &:hover {
+              color: $color-blue-primary;
+            }
+          }
+
+          &:last-child {
+            display: none;
+          }
         }
       }
     }

@@ -1,4 +1,6 @@
-@use './sass//variables' as *;
+@use './sass/variables' as *;
+@import "./sass/helpers";
+@import "./sass/_global";
 
 body {
   font-family: $font-family-roboto;

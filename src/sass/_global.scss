@@ -1,7 +1,15 @@
 @use './variables' as *;
+@use './colors' as *;
 
 .form-separator {
   width: 100%;
   height: 2px;
-  background-color: $color-gray-100;
+  background-color: $color-gray;
+}
+
+.form-separator-light {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(207, 204, 204, 0.397);
+  margin: 20px 0;
 }

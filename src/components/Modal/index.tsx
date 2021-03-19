@@ -3,10 +3,11 @@ import Login from "../Login";
 import "./style.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import Signup from "../SignUp";
 
 export interface IModalProps {
   component: string | {} | null;
-  handleModal: ()=>void
+  handleModal: (component:string,action:boolean)=>void
 }
 
 const Modal = ({ component,handleModal }: IModalProps) => {
@@ -14,15 +15,17 @@ const Modal = ({ component,handleModal }: IModalProps) => {
     switch (component) {
       case "login":
         return <Login />;
+      case 'signup':
+        return <Signup/>
       default:
         return "";
     }
-  }, [component]);
+  }, [component,handleModal]);
   return (
     <div className="modal">
       <div className="modal__overlay"></div>
       <div className="modal__body">
-        <span className="modal__body__close" onClick={handleModal}>
+        <span className="modal__body__close" onClick={()=>handleModal("",false)}>
           <FontAwesomeIcon icon={faTimes} />
         </span>
         {componentToLoad}

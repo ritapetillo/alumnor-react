@@ -1,4 +1,6 @@
-@use '../../sass//colors' as *;
+@use '../../sass/colors' as *;
+@use '../../sass/breakpoints' as *;
+
 
 .modal {
   width: 100vw;
@@ -9,23 +11,27 @@
   align-items: center;
   position: relative;
 
+
   &__body {
     height: 80vh;
     width: 80vw;
-    background-color: rgb(253, 253, 253);
+    background-color: $color-white-light;
     border-radius: 10px;
     overflow: hidden;
     position: absolute;
     &__close {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 20px;
+      right: 20px;
       z-index: 3;
-      font-size: 20px;
+      font-size: 24px;
       svg {
         cursor: pointer;
         &:hover {
           color: $color-gray;
+        }
+        @media screen and(max-width:$screen-md){
+            color:$color-white-light
         }
       }
     }
