@@ -1,0 +1,7 @@
+@use '../../sass/variables' as *;
+@use '../../sass/colors' as *;
+
+.dashboard-dark {
+  display: flex;
+  background-color: $color-blue-dark-primary;
+}

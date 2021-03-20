@@ -1,4 +1,5 @@
 import React, { memo, useMemo } from "react";
+import { Link } from "react-router-dom";
 import IUser from "../../interfaces/IUser";
 import "./style.scss";
 
@@ -28,7 +29,9 @@ const Dropdown = ({ menu, user }: IDropdownProps) => {
             <div className="form-separator-light"></div>
             <div className="header__dropwdown-menu">
               <ul>
-                <li>My Dashboard</li>
+                <Link to="/dashboard">
+                  <li>My Dashboard</li>
+                </Link>
                 <li>Account Settings</li>
                 <li>Refer a Friend</li>
                 <li>Help</li>

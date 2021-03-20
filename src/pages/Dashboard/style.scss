@@ -2,4 +2,33 @@
 @use '../../sass/colors' as *;
 
 .dashboard {
+  display: flex;
+ background-color:$color-white-light;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ //dark theme
+  &.dark{
+    background-color: $color-blue-dark-primary;
+  }
+
 }

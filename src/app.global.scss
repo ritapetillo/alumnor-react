@@ -2,6 +2,11 @@
 @import "./sass/helpers";
 @import "./sass/_global";
 
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
 body {
   font-family: $font-family-roboto;
   box-sizing: border-box;

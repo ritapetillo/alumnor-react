@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
 import authReducer from './authReducer'
+import themeReducer from './themeReducer'
 
 
 export default combineReducers({
-    auth:authReducer
+    auth: authReducer,
+    theme:themeReducer
 })

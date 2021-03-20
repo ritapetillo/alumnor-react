@@ -7,7 +7,7 @@
   font-family: $font-family-roboto;
   background-color: $color-blue-dark-primary;
   height: 80px;
-  padding: 5px 20px;
+  padding: 5px 60px;
   box-sizing: border-box;
   &__navbar {
     height: 100%;
@@ -111,10 +111,15 @@
     color: black;
     box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 6px 9px rgb(0 0 0 / 20%);
     border-radius: 5px;
+    z-index: 343;
     ul {
       list-style-type: none;
       padding-left: 0px;
       margin-left: -40px;
+      a {
+        color: black;
+        text-decoration: none;
+      }
       li {
         margin-top: 10px;
         cursor: pointer;
