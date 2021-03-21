@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Card } from "../../styles/libs";
+import { Card } from "../../styles/uiKit";
 
 export const DashBoard = styled.div`
   display: flex;

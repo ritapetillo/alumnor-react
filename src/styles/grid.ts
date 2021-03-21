@@ -1,136 +1,38 @@
-import styled from "styled-components";
+import styled, { StyledFunction } from "styled-components";
 
-export const ColMd1 = styled.div`
-  @media (min-width: 768px) {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-`;
 
-export const ColMd2 = styled.div`
-  @media (min-width: 768px) {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
-`;
+interface ICol {
+  xl?: number;
+  lg?: number;
+  md?: number;
+  sm?: number;
+}
 
-export const ColMd3 = styled.div`
-  @media (min-width: 768px) {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
-  }
-`;
-
-export const ColMd4 = styled.div`
-  @media (min-width: 768px) {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    flex: 0 0 25%;
-    max-width: 25%;
-  }
-`;
-
-export const ColLg1 = styled.div`
-  @media (min-width: 992px) {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-`;
-
-export const ColLg2 = styled.div`
-  @media (min-width: 992px) {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
-`;
-
-export const ColLg3 = styled.div`
-  @media (min-width: 992px) {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
-  }
-`;
-
-export const ColLg4 = styled.div`
-  @media (min-width: 992px) {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    flex: 0 0 25%;
-    max-width: 25%;
-  }
-`;
-
-export const ColXg1 = styled.div`
-  @media (min-width: 1200px) {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-`;
-
-export const ColXLg2 = styled.div`
-  @media (min-width: 1200px) {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
-`;
-
-export const ColXLg3 = styled.div`
-  @media (min-width: 1200px) {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
-  }
-`;
-
-export const ColXLg4 = styled.div`
-  @media (min-width: 1200px) {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    flex: 0 0 25%;
-    max-width: 25%;
-  }
-`;
+export const Col = styled.div<ICol>`
+         position: relative;
+         padding-right: 15px;
+         padding-left: 15px;
+         /* @media (max-width: 767px) { */
+           width: ${(props) => props.sm && `${100 / (12 / props.sm)}%`};
+           flex: ${(props) => props.sm && `0 0 ${100 / (12 / props.sm)}%`};
+           max-width: ${(props) => props.sm && `${100 / (12 / props.sm)}%`};
+         /* } */
+         @media (min-width: 768px)  {
+           width: ${(props) => props.md && `${100 / (12 / props.md)}%`};
+           flex: ${(props) => props.md && `0 0 ${100 / (12 / props.md)}%`};
+           max-width: ${(props) => props.md && `${100 / (12 / props.md)}%`};
+         }
+         @media (min-width: 992px)  {
+           width: ${(props) => props.lg && `${100 / (12 / props.lg)}%`};
+           flex: ${(props) => props.lg && `0 0 ${100 / (12 / props.lg)}%`};
+           max-width: ${(props) => props.lg && `${100 / (12 / props.lg)}%`};
+         }
+         @media (min-width: 1200px) {
+           width: ${(props) => props.xl && `${100 / (12 / props.xl)}%`};
+           flex: ${(props) => props.xl && `0 0 ${100 / (12 / props.xl)}%`};
+           max-width: ${(props) => props.xl && `${100 / (12 / props.xl)}%`};
+         }
+       `;
 
 export const Row = styled.div`
   display: flex;
@@ -139,4 +41,15 @@ export const Row = styled.div`
   margin-left: -15px; */
   max-width: 1600px;
   width: 100%;
+`;
+export const CenteredRow = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+`;
+
+export const SpaceBetweenRow = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 `;

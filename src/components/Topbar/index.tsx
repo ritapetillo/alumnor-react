@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../store";
-import { RoundImage } from "../../styles/libs";
+import { RoundImage } from "../../styles/uiKit";
 import { TopBar } from "./topbar.elements";
 
 const Topbar = () => {

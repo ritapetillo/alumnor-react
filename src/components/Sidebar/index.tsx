@@ -16,7 +16,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { ButtonSidebar, SideBar, SideBarMenu } from "./sidebar.elements";
-import { Divider, Logo } from "../../styles/libs";
+import { Divider, Logo } from "../../styles/uiKit";
 import { NavLink } from "react-router-dom";
 import Toggle from "../Toggle";
 import { useSelector } from "react-redux";

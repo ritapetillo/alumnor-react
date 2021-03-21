@@ -3,9 +3,10 @@ export const lightTheme = {
   primaryColorLighter: "hsla(0, 2%, 91%, 0.75)",
   secondaryColor: "rgb(12, 47, 69)",
   text: "#b7b9b5",
-  textSecondary: "#b7b9b5",
+  textSecondary: "rgb(12, 47, 69)",
   toggleBorder: "#FFF",
   gradient: "linear-gradient(#39598A, #79D7ED)",
+  fontPrimary: "Roboto",
 };
 
 export const darkTheme = {
@@ -16,4 +17,5 @@ export const darkTheme = {
   textSecondary: "#e3dcd6",
   toggleBorder: "#FFF",
   gradient: "linear-gradient(#39598A, #79D7ED)",
+  fontPrimary: "Roboto",
 };

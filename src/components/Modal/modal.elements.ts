@@ -1,7 +1,6 @@
-@use '../../sass/colors' as *;
-@use '../../sass/breakpoints' as *;
+import styled from "styled-components";
 
-.modal {
+export const ModalWrapper = styled.div`
   width: 100vw;
   height: calc(100vh - 40px);
   background-color: rgba(0, 0, 0, 0.747);
@@ -12,15 +11,15 @@
   top: 0;
   right: 0;
   z-index: 1333;
-
-  &__body {
+  color: ${(props) => props.theme.textSecondary};
+  .modal__body {
     height: 80vh;
     width: 80vw;
-    background-color: $color-white-light;
+    background-color: ${(props) => props.theme.primaryColor};
     border-radius: 10px;
     overflow: hidden;
     position: absolute;
-    &__close {
+    .modal__body__close {
       position: absolute;
       top: 20px;
       right: 20px;
@@ -29,12 +28,12 @@
       svg {
         cursor: pointer;
         &:hover {
-          color: $color-gray;
+          color: ${(props) => props.theme.secondaryColor};
         }
-        @media screen and(max-width:$screen-md) {
-          color: $color-white-light;
+        @media screen and(max-width:768) {
+          background-color: ${(props) => props.theme.primaryColor};
         }
       }
     }
   }
-}
+`;
