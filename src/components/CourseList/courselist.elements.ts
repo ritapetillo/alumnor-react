@@ -20,3 +20,10 @@ export const CreateNewCard = styled(Card)`
     font-size: 30px;
   }
 `;
+
+export const CourseCard = styled(Card)`
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+`;

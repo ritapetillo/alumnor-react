@@ -14,16 +14,24 @@ import {
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect } from "react";
 import { ButtonSidebar, SideBar, SideBarMenu } from "./sidebar.elements";
 import { Divider, Logo } from "../../styles/uiKit";
 import { NavLink } from "react-router-dom";
 import Toggle from "../Toggle";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../store";
+import { getCurrentUserCoursesAsInstructorAction } from "../../actions/courseAction";
 
 const Sidebar = () => {
   const user = useSelector((state: RootStore) => state.auth.user);
+  const coursesAsInstructor = useSelector(
+    (state: RootStore) => state.courses.cursesAsInstructor
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCurrentUserCoursesAsInstructorAction());
+  }, [user, coursesAsInstructor.length]);
 
   return (
     <SideBar>

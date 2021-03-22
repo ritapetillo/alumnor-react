@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import styled from "styled-components";
 import { Input, TextArea } from "../../styles/uiKit";
 
@@ -54,6 +55,8 @@ export const InputCourse = styled(Input)`
     border-color: ${(props) => props.theme.secondaryColor};
   }
 `;
+
+
 
 export const TextAreaCourse = styled(TextArea)`
   width: 100%;

@@ -2,21 +2,25 @@ import React, { useRef } from "react";
 import "./style.scss";
 import facebook from "../../assets/icons/facebook.svg";
 import google from "../../assets/icons/google.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../actions/authActions";
 import config from "../../config";
+import { toggleModalAction } from "../../actions/modalActions";
+import { RootStore } from "../../store";
 
 const Login = () => {
   const email = useRef<HTMLInputElement | null>(null);
   const password = useRef<HTMLInputElement | null>(null);
   const dispatch = useDispatch();
+  const isAuth = useSelector((state: RootStore) => state.auth.isAuth);
 
   const handleLogin = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     console.log("ciao");
     const userEmail: string = email.current!.value;
     const userPass: string = password.current!.value;
-    const login = dispatch(loginAction(userEmail, userPass));
+    const login = await dispatch(loginAction(userEmail, userPass));
+    if (isAuth) dispatch(toggleModalAction(false, ""));
   };
   return (
     <div className="login">

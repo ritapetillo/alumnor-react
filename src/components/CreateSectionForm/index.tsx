@@ -7,27 +7,35 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useMemo, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createNewCourseAction } from "../../actions/courseAction";
+import { useParams, withRouter, useLocation } from "react-router";
+import { createANewSectionAction } from "../../actions/courseAction";
 import { toggleModalAction } from "../../actions/modalActions";
+import { ICourse } from "../../interfaces/redux/states/ICourseInitialState";
+import { RootStore } from "../../store";
 import { StatusBar } from "../../styles/uiKit";
+import { InputWrapper } from "../CreateCourseForm/createCourseForm.elements";
 import {
-  CreateCourseWrap,
-  InputCourse,
-  InputWrapper,
-  TextAreaCourse,
-  CreateCourseStep,
-} from "./createCourseForm.elements";
+  CreateSectionWrap,
+  InputSection,
+  TextAreaSection,
+  CreateSectionStep,
+} from "./createSectionForm.elements";
 
 interface CreateCourseForm {
   handleModal: (component: string, action: boolean) => void;
 }
 
-const CreateCourseForm = () => {
+const CreateSectionForm = () => {
   const [stepNumber, setStepNumber] = useState(0);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const dispatch = useDispatch();
+  const params = useParams();
+  const location = useLocation();
+  // const currentCourse = useState(
+  //   (state: RootStore) => state.courses.currentCourse
+  // );
 
   const goForward = () => {
     setStepNumber(stepNumber + 1);
@@ -38,14 +46,14 @@ const CreateCourseForm = () => {
     }
   };
 
-  const handleCreateNewCourse = async () => {
-    const courseData = {
+  const handleCreateNewSection = async () => {
+    console.log(params);
+    const sectionData = {
       description,
-      category,
       title,
     };
-
-    const newCourse = await dispatch(createNewCourseAction(courseData));
+    const id = location.pathname.replace("/courses/", "");
+    const newSection = await dispatch(createANewSectionAction(id, sectionData));
     dispatch(toggleModalAction(false, ""));
   };
 
@@ -54,13 +62,10 @@ const CreateCourseForm = () => {
       case 0:
         return (
           <>
-            <h3>What about a working title?</h3>
-            <p>
-              It's ok if you can't think of a good title now. You can change it
-              later.
-            </p>
+            <h3>What is the title of this section ?</h3>
+            <p>Choose a title which describes the topic of this section.</p>
             <InputWrapper>
-              <InputCourse
+              <InputSection
                 type="text"
                 placeholder="Title"
                 onChange={(e) => setTitle(e.target.value)}
@@ -71,13 +76,13 @@ const CreateCourseForm = () => {
       case 1:
         return (
           <>
-            <h3>Can you describe your course?</h3>
+            <h3>Can you describe the topic of this section?</h3>
             <p>
-              Write as much as you can, but in case something is missing, you
-              can change it later.
+              Write a short description. In case something is missing, you can
+              change it later.
             </p>
             <InputWrapper>
-              <TextAreaCourse
+              <TextAreaSection
                 rows={4}
                 placeholder="Description"
                 onChange={(e) => setDescription(e.target.value)}
@@ -85,45 +90,28 @@ const CreateCourseForm = () => {
             </InputWrapper>
           </>
         );
-      case 2:
-        return (
-          <>
-            <h3>What category best fits the knowledge you'll share?</h3>
-            <p>
-              If you're not sure about the right category, you can change it
-              later.
-            </p>
-            <InputWrapper>
-              <InputCourse
-                type="text"
-                placeholder="Category"
-                onChange={(e) => setCategory(e.target.value)}
-              />
-            </InputWrapper>
-          </>
-        );
     }
   }, [stepNumber]);
   return (
-    <CreateCourseWrap>
+    <CreateSectionWrap>
       <StatusBar step={stepNumber}>
         <span></span>
       </StatusBar>
-      <CreateCourseStep> {step}</CreateCourseStep>
+      <CreateSectionStep> {step}</CreateSectionStep>
       <div className="arrow-bottom">
         <FontAwesomeIcon icon={faArrowLeft} onClick={goBack} />
 
-        {stepNumber === 2 ? (
+        {stepNumber === 1 ? (
           <FontAwesomeIcon
             icon={faCheckSquare}
-            onClick={() => handleCreateNewCourse()}
+            onClick={() => handleCreateNewSection()}
           />
         ) : (
           <FontAwesomeIcon icon={faArrowRight} onClick={goForward} />
         )}
       </div>
-    </CreateCourseWrap>
+    </CreateSectionWrap>
   );
 };
 
-export default CreateCourseForm;
+export default withRouter(CreateSectionForm);

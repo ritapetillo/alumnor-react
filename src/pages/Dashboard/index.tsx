@@ -8,7 +8,6 @@ import {
   CardNotes,
   CalendarDiv,
 } from "./dashboard.elements";
-import "./style.scss";
 import classIcon from "../../assets/icons/time.svg";
 import assignmentsIcon from "../../assets/icons/homework.svg";
 import dot from "../../assets/icons/rec.svg";

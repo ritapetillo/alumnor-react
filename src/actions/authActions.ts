@@ -3,6 +3,7 @@ import axios from "axios";
 import { Dispatch } from "react";
 import { LoginDispachTypes } from "../interfaces/redux/actions/login";
 import { getCurrentUserApi, loginApi } from "../api/userApi";
+import { getCurrentUserCoursesAsInstructorAction } from "./courseAction";
 
 export const loginAction = (email: string, password: string) => async (
   dispatch: Dispatch<LoginDispachTypes>
@@ -37,6 +38,7 @@ export const getCurrentUserAction = () => async (
         type: LOGIN_SUCCESS,
         payload: currentUser,
       });
+     
     } else throw Error;
   } catch (err) {
     dispatch({

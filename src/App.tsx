@@ -12,7 +12,8 @@ import Topbar from "./components/Topbar";
 import { useSelector } from "react-redux";
 import { RootStore } from "./store";
 import Sidebar from "./components/Sidebar";
-import Course from "./pages/Courses";
+import Courses from "./pages/Courses";
+import Course from "./pages/Course";
 
 function App() {
   const theme = useSelector((state: RootStore) => state.theme);
@@ -26,7 +27,8 @@ function App() {
             {/* <Route exact path="/dashboard" component={Topbar} /> */}
 
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/courses" component={Course} />
+            <Route exact path="/courses" component={Courses} />
+            <Route exact path="/courses/:id" component={Course} />
           </div>
 
           <Route exact path="/" component={Auth} />

@@ -13,6 +13,7 @@ const authReducer = (state = initialState, action: any) => {
   switch (type) {
     case LOGIN_SUCCESS:
       return {
+        ...state,
         user: payload,
         isAuth: true,
         isLoading: false,
@@ -20,6 +21,7 @@ const authReducer = (state = initialState, action: any) => {
       };
     case LOGIN_LOADING:
       return {
+        ...state,
         user: {},
         isLoading: true,
         isAuth: false,
@@ -27,6 +29,7 @@ const authReducer = (state = initialState, action: any) => {
       };
     case LOGIN_FAIL:
       return {
+        ...state,
         user: {},
         isLoading: false,
         isAuth: false,

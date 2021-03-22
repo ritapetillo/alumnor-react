@@ -8,32 +8,31 @@ import { RootStore } from "../../store";
 import { getCurrentUserAction } from "../../actions/authActions";
 import Dropdown from "./Dropdown";
 import userEvent from "@testing-library/user-event";
+import { getCurrentUserCoursesAsInstructorAction } from "../../actions/courseAction";
+import { toggleModalAction } from "../../actions/modalActions";
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
   const [component, setComponent] = useState("");
   const [showAuthDrop, setShowAuthDrop] = useState(false);
   const auth = useSelector((state: RootStore) => state.auth);
+  const modalStatus = useSelector((state: RootStore) => state.modal.isOpen);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCurrentUserAction());
   }, []);
 
-  const handleModal = useCallback(
-    (component: string = "", action) => {
-      setComponent(component);
-      setShowModal(action);
-    },
-    [showModal]
-  );
-
   const authSection = useMemo(() => {
     if (!auth.isAuth) {
       return (
         <>
-          <span onClick={() => handleModal("login", true)}>Sign In</span>
-          <span onClick={() => handleModal("signup", true)}>Sign Up</span>
+          <span onClick={() => dispatch(toggleModalAction(true, "login"))}>
+            Sign In
+          </span>
+          <span onClick={() => dispatch(toggleModalAction(true, "signup"))}>
+            Sign Up
+          </span>
         </>
       );
     } else {
@@ -50,13 +49,12 @@ const Header = () => {
         </>
       );
     }
-  }, [auth,showAuthDrop]);
+  }, [auth, showAuthDrop]);
 
-  const modal = useMemo(
-    () =>
-      showModal && <Modal component={component} handleModal={handleModal} />,
-    [showModal, handleModal, component]
-  );
+  const modal = useMemo(() => modalStatus && <Modal />, [
+    modalStatus,
+    dispatch,
+  ]);
   return (
     <>
       <header className="header">

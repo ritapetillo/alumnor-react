@@ -6,35 +6,49 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Signup from "../SignUp";
 import CreateCourseForm from "../CreateCourseForm";
 import { ModalWrapper } from "./modal.elements";
+import { useDispatch, useSelector } from "react-redux";
+import { RootStore } from "../../store";
+import { toggleModalAction } from "../../actions/modalActions";
+import CreateSectionForm from "../CreateSectionForm";
 
 export interface IModalProps {
   component: string | {} | null;
-  handleModal: (component:string,action:boolean)=>void
+  handleModal: (component: string, action: boolean) => void;
 }
 
-const Modal = ({ component,handleModal }: IModalProps) => {
+const Modal = () => {
+  const modalComponent = useSelector((state: RootStore) => state.modal.type);
+  const dispatch = useDispatch();
+  const handleModal = () => {
+    dispatch(toggleModalAction(false, ""));
+  };
   const componentToLoad = useMemo(() => {
-    switch (component) {
+    switch (modalComponent) {
       case "login":
         return <Login />;
       case "signup":
         return <Signup />;
       case "newCourse":
-        return <CreateCourseForm/>;
+        return <CreateCourseForm  />;
+      case "newSection":
+        return <CreateSectionForm  />;
       default:
         return "";
     }
-  }, [component,handleModal]);
+  }, [modalComponent, handleModal]);
   return (
-   <ModalWrapper>
+    <ModalWrapper>
       <div className="modal__overlay"></div>
       <div className="modal__body">
-        <span className="modal__body__close" onClick={()=>handleModal("",false)}>
+        <span
+          className="modal__body__close"
+          onClick={() => handleModal()}
+        >
           <FontAwesomeIcon icon={faTimes} />
         </span>
         {componentToLoad}
       </div>
-   </ModalWrapper>
+    </ModalWrapper>
   );
 };
 

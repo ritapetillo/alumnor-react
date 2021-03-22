@@ -1,17 +1,24 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import CourseList from "../../components/CourseList";
 import Login from "../../components/Login";
 import Modal from "../../components/Modal";
 import Sidebar from "../../components/Sidebar";
 import { ButtonSidebar } from "../../components/Sidebar/sidebar.elements";
 import { roles } from "../../libs/roles";
+import { RootStore } from "../../store";
 import { Col, Row, CenteredRow } from "../../styles/grid";
 import { Card, SwitchRoles } from "../../styles/uiKit";
 import { CoursePage, CoursePageMain } from "./courses.elements";
+import Loader from "react-loader-spinner";
 
 const Courses = () => {
   const [role, setRole] = useState(roles.STUDENT);
-
+  const isLoading = useSelector((state: RootStore) => state.courses.isLoading);
+  const roleUser = useSelector((state: RootStore) => state.auth.user.role);
+  useEffect(() => {
+    if (roleUser !== "student") setRole(roles.INSTRUCTOR);
+  }, []);
   const currentBoard = useMemo(() => {
     if (role === roles.STUDENT) {
       return <CourseList courses={[{ ciao: "ciao" }]} type={roles.STUDENT} />;
