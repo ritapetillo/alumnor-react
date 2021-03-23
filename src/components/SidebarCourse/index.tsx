@@ -13,19 +13,20 @@ import {
   CardSection,
   ButtonAdd,
   Activity,
+  SectionWrapper,
 } from "./sidebarCourse.elements";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../store";
 import { toggleModalAction } from "../../actions/modalActions";
 import { editCourse } from "../../api/courseApi";
+import Section from "./Section";
+import { ISection } from "../../interfaces/redux/states/ICourseInitialState";
 
 const SidebarCourse = () => {
   const history = useHistory();
   const params = useParams();
-  const [sections, setSections] = useState<
-    [{ title: string; _id: string }] | []
-  >([]);
+  const [sections, setSections] = useState<[ISection] | []>([]);
   const dispatch = useDispatch();
   const currentCourse = useSelector(
     (state: RootStore) => state.courses.currentCourse
@@ -72,7 +73,7 @@ const SidebarCourse = () => {
     moveInArray(newArray, from, to, item);
     setSections(newArray);
     const { id }: any = params;
-    const sectionsId = sections.map((section: { _id: string }) => section._id);
+    const sectionsId = sections.map((section: ISection) => section._id);
     editCourse(id, { sections: sectionsId });
   };
 
@@ -87,40 +88,23 @@ const SidebarCourse = () => {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {sections.map(
-                  (item: { title: string; _id: string }, index: number) => (
-                    <Draggable
-                      key={item._id}
-                      draggableId={item._id}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <CardSection
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <h4>{item.title}</h4>
-                          {/* @ts-ignore */}
-                          <p>{item.description}</p>
-                          <div>
-                            <Activity>{item.title}</Activity>
-                            <Activity>{item.title}</Activity>
-                            <Activity>{item.title}</Activity>
-                            <Activity>{item.title}</Activity>
-                            <Activity>{item.title}</Activity>
-                            <Activity>{item.title}</Activity>
-                            <Activity>{item.title}</Activity>
-                          </div>
-                          <ButtonAdd>
-                            <FontAwesomeIcon icon={faPlus} />
-                            New Activity
-                          </ButtonAdd>
-                        </CardSection>
-                      )}
-                    </Draggable>
-                  )
-                )}
+                {sections.map((item: ISection, index: number) => (
+                  <Draggable
+                    key={item._id}
+                    draggableId={item._id}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <SectionWrapper
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <Section item={item} />
+                      </SectionWrapper>
+                    )}
+                  </Draggable>
+                ))}
               </Row>
             )}
           </Droppable>
@@ -131,7 +115,7 @@ const SidebarCourse = () => {
 
   return (
     <SidebarCourseWrapper>
-      <Row className="arrow" onClick={() => history.goBack()}>
+      <Row className="arrow" onClick={() => history.push(`/courses`)}>
         <FontAwesomeIcon icon={faChevronLeft} /> <span>Back to Courses</span>
       </Row>
       <h4>{currentCourse?.title}</h4>

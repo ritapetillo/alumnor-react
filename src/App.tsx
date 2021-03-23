@@ -14,6 +14,8 @@ import { RootStore } from "./store";
 import Sidebar from "./components/Sidebar";
 import Courses from "./pages/Courses";
 import Course from "./pages/Course";
+import { CourseWrapper } from "./pages/Course/course.elements";
+import SidebarCourse from "./components/SidebarCourse";
 
 function App() {
   const theme = useSelector((state: RootStore) => state.theme);
@@ -28,10 +30,10 @@ function App() {
 
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/courses" component={Courses} />
-            <Route exact path="/courses/:id" component={Course} />
           </div>
-
-          <Route exact path="/" component={Auth} />
+        
+            <Route exact path="/courses/:id/:activityId" component={Course} />
+            {/* <Route exact path="/courses/:id/" component={Course} /> */}
         </div>
       </ThemeProvider>
     </Switch>

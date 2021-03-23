@@ -4,7 +4,9 @@ import {
   CREATE_NEW_COURSE,
   CREATE_NEW_COURSE_SECTION,
   GET_CURRENT_COURSE,
+  GET_CURRENT_SECTION,
   GET_CURRENT_USER_COURSES_AS_INSTRUCTOR,
+  SELECT_ACTIVITY,
 } from "./types";
 import axios from "axios";
 import { CourseDispachTypes } from "../interfaces/redux/actions/course";
@@ -15,6 +17,7 @@ import {
   getCourseById,
   createANewSession,
 } from "../api/courseApi";
+import { IActivity, ISection } from "../interfaces/redux/states/ICourseInitialState";
 export const createNewCourseAction = (data: {}) => async (
   dispatch: Dispatch<CourseDispachTypes>
 ) => {
@@ -110,3 +113,50 @@ export const createANewSectionAction = (id: string, data: {}) => async (
     });
   }
 };
+
+export const getCurrentSectionAction = (data : ISection) => async (
+  dispatch: Dispatch<CourseDispachTypes>
+) => {
+  try {
+    dispatch({
+      type: COURSE_LOADING,
+    });
+    console.log(data)
+    dispatch({
+      type: GET_CURRENT_SECTION,
+      payload: data,
+    });
+  } catch (err) {
+    dispatch({
+      type: COURSE_ERROR,
+      payload: {
+        type: "currentSection",
+        errorMsg: "There was an error selecting this section",
+      },
+    });
+  }
+};
+
+export const selectActivityAction = (data: IActivity) => async (
+  dispatch: Dispatch<CourseDispachTypes>
+) => {
+  try {
+    dispatch({
+      type: COURSE_LOADING,
+    });
+    console.log(data);
+    dispatch({
+      type: SELECT_ACTIVITY,
+      payload: data,
+    });
+  } catch (err) {
+    dispatch({
+      type: COURSE_ERROR,
+      payload: {
+        type: "currentActivity",
+        errorMsg: "There was an error selecting this activity",
+      },
+    });
+  }
+};
+

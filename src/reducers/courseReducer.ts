@@ -5,12 +5,15 @@ import {
   GET_CURRENT_USER_COURSES_AS_INSTRUCTOR,
   GET_CURRENT_COURSE,
   CREATE_NEW_COURSE_SECTION,
+  GET_CURRENT_SECTION,
 } from "../actions/types";
 import { CourseDispachTypes } from "../interfaces/redux/actions/course";
 import ICourseInitialState from "../interfaces/redux/states/ICourseInitialState";
 
 const initialState: ICourseInitialState = {
   currentCourse: {},
+  currentSection: {},
+  currentActivity: {},
   errorMsg: "",
   isLoading: false,
   newCourse: "",
@@ -55,6 +58,13 @@ const courseReducer = (
         ...state,
         isLoading: false,
         currentCourse: payload,
+        errorMsg: "",
+      };
+    case GET_CURRENT_SECTION:
+      return {
+        ...state,
+        isLoading: false,
+        currentSection: payload,
         errorMsg: "",
       };
     case COURSE_ERROR:

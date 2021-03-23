@@ -5,9 +5,11 @@ import {
   GET_CURRENT_USER_COURSES_AS_INSTRUCTOR,
   GET_CURRENT_COURSE,
   CREATE_NEW_COURSE_SECTION,
+  GET_CURRENT_SECTION,
+  SELECT_ACTIVITY,
 } from "../../../actions/types";
 import IAuthInitialState from "../states/IAuthInitialState";
-import { ICourse } from "../states/ICourseInitialState";
+import { IActivity, ICourse, ISection } from "../states/ICourseInitialState";
 
 export interface CourseLoading {
   type: typeof COURSE_LOADING;
@@ -29,6 +31,15 @@ export interface GetCurrentCourse {
   type: typeof GET_CURRENT_COURSE;
   payload: ICourse;
 }
+export interface GetCurrentSection {
+  type: typeof GET_CURRENT_SECTION;
+  payload: ISection;
+}
+
+export interface SelectActivity {
+  type: typeof SELECT_ACTIVITY;
+  payload: IActivity;
+}
 export interface CourseError {
   type: typeof COURSE_ERROR;
   payload: {
@@ -43,4 +54,6 @@ export type CourseDispachTypes =
   | CreateNewCourse
   | GetCurrentUserCoursesAsInstructor
   | GetCurrentCourse
-  | CreateNewSection;
+  | CreateNewSection
+  | GetCurrentSection
+  | SelectActivity;

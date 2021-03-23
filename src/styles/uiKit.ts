@@ -168,3 +168,13 @@ export const StatusBar = styled.div<IStatusBar>`
       props.step === 0 ? `4%` : props.step === 1 ? `50%` : `100%`};
   }
 `;
+
+export const CloudDetails = styled.div`
+  width: fit-content;
+  position: absolute;
+  height: 30px;
+  background-color: ${(props) => props.theme.secondaryColor};
+  line-height: 30px;
+  text-align: center;
+  color: ${(props) => props.theme.text};
+`;

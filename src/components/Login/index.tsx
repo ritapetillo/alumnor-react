@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./style.scss";
 import facebook from "../../assets/icons/facebook.svg";
 import google from "../../assets/icons/google.svg";
@@ -13,14 +13,16 @@ const Login = () => {
   const password = useRef<HTMLInputElement | null>(null);
   const dispatch = useDispatch();
   const isAuth = useSelector((state: RootStore) => state.auth.isAuth);
+  useEffect(() => {
+    if (isAuth) dispatch(toggleModalAction(false, ""));
+  }, [isAuth]);
 
   const handleLogin = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     console.log("ciao");
     const userEmail: string = email.current!.value;
     const userPass: string = password.current!.value;
-    const login = await dispatch(loginAction(userEmail, userPass));
-    if (isAuth) dispatch(toggleModalAction(false, ""));
+    const login = dispatch(loginAction(userEmail, userPass));
   };
   return (
     <div className="login">

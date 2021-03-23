@@ -94,3 +94,38 @@ export const editCourse = async (courseId: string, data: {}) => {
     return null;
   }
 };
+
+export const createANewActivity = async (
+  courseId: string,
+  sectionId: string,
+  data: {}
+) => {
+  try {
+    const axiosConfig: {} = {
+      method: "post",
+      url: `${config.BE_URI}/activities/${courseId}/${sectionId}/`,
+      data,
+    };
+    const resp = await axios(axiosConfig);
+    const { activity } = await resp.data;
+    return activity;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+export const getActivityById = async (id: string) => {
+  try {
+    const axiosConfig: {} = {
+      method: "get",
+      url: `${config.BE_URI}/activities/${id}`,
+    };
+    const resp = await axios(axiosConfig);
+    const { activity } = await resp.data;
+    return activity;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};

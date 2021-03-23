@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../store";
 import { toggleModalAction } from "../../actions/modalActions";
 import CreateSectionForm from "../CreateSectionForm";
+import ActivityForm from "../ActivityForm";
 
 export interface IModalProps {
   component: string | {} | null;
@@ -29,9 +30,11 @@ const Modal = () => {
       case "signup":
         return <Signup />;
       case "newCourse":
-        return <CreateCourseForm  />;
+        return <CreateCourseForm />;
       case "newSection":
-        return <CreateSectionForm  />;
+        return <CreateSectionForm />;
+      case "newActivity":
+        return <ActivityForm />;
       default:
         return "";
     }
@@ -40,10 +43,7 @@ const Modal = () => {
     <ModalWrapper>
       <div className="modal__overlay"></div>
       <div className="modal__body">
-        <span
-          className="modal__body__close"
-          onClick={() => handleModal()}
-        >
+        <span className="modal__body__close" onClick={() => handleModal()}>
           <FontAwesomeIcon icon={faTimes} />
         </span>
         {componentToLoad}
