@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useMemo, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, withRouter, useLocation } from "react-router";
 import { createANewSectionAction } from "../../actions/courseAction";
 import { toggleModalAction } from "../../actions/modalActions";
@@ -33,6 +33,9 @@ const CreateSectionForm = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const location = useLocation();
+  const currentCourse = useSelector(
+    (state: RootStore) => state.courses.currentCourse
+  );
   // const currentCourse = useState(
   //   (state: RootStore) => state.courses.currentCourse
   // );
@@ -52,8 +55,11 @@ const CreateSectionForm = () => {
       description,
       title,
     };
-    const id = location.pathname.replace("/courses/", "");
-    const newSection = await dispatch(createANewSectionAction(id, sectionData));
+    let id = location.pathname.replace("/courses/", "");
+    id = id.replace("/main", "");
+    const newSection = await dispatch(
+      createANewSectionAction(currentCourse._id, sectionData)
+    );
     dispatch(toggleModalAction(false, ""));
   };
 

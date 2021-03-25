@@ -21,3 +21,6 @@ export const SELECT_ACTIVITY = "SELECT_ACTIVITY";
 //MODAL
 export const OPEN_MODAL = "OPEN_MODAL";
 export const CLOSE_MODAL = "CLOSE_MODAL";
+
+//SIDEBAR
+export const TOGGLE_SIDE_RIGHT = "TOGGLE_SIDE_RIGHT";

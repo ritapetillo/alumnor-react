@@ -1,3 +1,4 @@
+import { FormatAlignCenter, FormatShapes } from "@material-ui/icons";
 import axios from "axios";
 import config from "../config";
 
@@ -95,6 +96,33 @@ export const editCourse = async (courseId: string, data: {}) => {
   }
 };
 
+////////////SECTIONS
+
+export const editSectionById = async (
+  courseId: string,
+  id: string,
+  data: {}
+) => {
+  try {
+    const axiosConfig: {} = {
+      method: "put",
+      url: `${config.BE_URI}/sections/${courseId}/edit/${id}`,
+      data,
+    };
+    const resp = await axios(axiosConfig);
+    const { section } = await resp.data;
+    return section;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+
+
+
+
+////////////ACTIVIVITIES
 export const createANewActivity = async (
   courseId: string,
   sectionId: string,
@@ -129,3 +157,92 @@ export const getActivityById = async (id: string) => {
     return null;
   }
 };
+
+export const editActivityById = async (
+  courseId: string,
+  id: string,
+  data: {}
+) => {
+  try {
+    const axiosConfig: {} = {
+      method: "put",
+      url: `${config.BE_URI}/activities/${courseId}/edit/${id}`,
+      data,
+    };
+    const resp = await axios(axiosConfig);
+    const { activity } = await resp.data;
+    return activity;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+export const uploadDocumentsActivity = async (
+  courseId: string,
+  id: string,
+  uploads: FormData
+) => {
+  try {
+    // @ts-ignore
+    for (let key of uploads.entries()) {
+      console.log(key);
+    }
+
+    const axiosConfig: {} = {
+      method: "post",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      url: `${config.BE_URI}/activities/${courseId}/${id}/upload`,
+      data:uploads,
+    };
+    const resp = await axios(axiosConfig);
+    const { activity } = await resp.data;
+    return activity;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+export const deleteFileFromActivity = async (
+  courseId: string,
+  id: string,
+  data: {}
+) => {
+  try {
+    const axiosConfig: {} = {
+      method: "put",
+      url: `${config.BE_URI}/activities/${courseId}/${id}/file/delete`,
+      data,
+    };
+    const resp = await axios(axiosConfig);
+    const { activity } = await resp.data;
+    return activity;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+export const generateLiveLink = async (
+  courseId: string,
+  id: string,
+  data: {}
+) => {
+  try {
+    const axiosConfig: {} = {
+      method: "post",
+      url: `${config.BE_URI}/activities/${courseId}/${id}/zoom-link`,
+      data,
+    };
+    const resp = await axios(axiosConfig);
+    const { link } = await resp.data;
+    return link;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+

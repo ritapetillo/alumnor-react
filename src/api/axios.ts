@@ -1,5 +1,14 @@
-import axios from 'axios'
+import axios from "axios";
+import createAuthRefreshInterceptor from "axios-auth-refresh";
+import config from "../config";
 
-axios.defaults.withCredentials = true
+// Function that will be called to refresh authorization
+const refreshAuthLogic = (failedRequest: any) =>
+  axios.post(`${config.BE_URI}/auth/refresh`);
 
-export default axios
+// Instantiate the interceptor (you can chain it as it returns the axios instance)
+createAuthRefreshInterceptor(axios, refreshAuthLogic);
+
+axios.defaults.withCredentials = true;
+
+export default axios;

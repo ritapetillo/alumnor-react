@@ -16,8 +16,12 @@ import {
   getCurrentUserCoursesAsInstructor,
   getCourseById,
   createANewSession,
+  getActivityById,
 } from "../api/courseApi";
-import { IActivity, ISection } from "../interfaces/redux/states/ICourseInitialState";
+import {
+  IActivity,
+  ISection,
+} from "../interfaces/redux/states/ICourseInitialState";
 export const createNewCourseAction = (data: {}) => async (
   dispatch: Dispatch<CourseDispachTypes>
 ) => {
@@ -97,6 +101,8 @@ export const createANewSectionAction = (id: string, data: {}) => async (
     dispatch({
       type: COURSE_LOADING,
     });
+    console.log(id);
+    console.log(data);
     const session = await createANewSession(id, data);
     if (!session) throw Error;
     dispatch({
@@ -114,14 +120,14 @@ export const createANewSectionAction = (id: string, data: {}) => async (
   }
 };
 
-export const getCurrentSectionAction = (data : ISection) => async (
+export const getCurrentSectionAction = (data: ISection) => async (
   dispatch: Dispatch<CourseDispachTypes>
 ) => {
   try {
     dispatch({
       type: COURSE_LOADING,
     });
-    console.log(data)
+    console.log(data);
     dispatch({
       type: GET_CURRENT_SECTION,
       payload: data,
@@ -137,18 +143,17 @@ export const getCurrentSectionAction = (data : ISection) => async (
   }
 };
 
-export const selectActivityAction = (data: IActivity) => async (
+export const selectActivityAction = (id: string) => async (
   dispatch: Dispatch<CourseDispachTypes>
 ) => {
   try {
-    dispatch({
-      type: COURSE_LOADING,
-    });
-    console.log(data);
-    dispatch({
-      type: SELECT_ACTIVITY,
-      payload: data,
-    });
+    const activity = await getActivityById(id);
+    if (activity) {
+      dispatch({
+        type: SELECT_ACTIVITY,
+        payload: activity,
+      });
+    } else throw Error;
   } catch (err) {
     dispatch({
       type: COURSE_ERROR,
@@ -159,4 +164,3 @@ export const selectActivityAction = (data: IActivity) => async (
     });
   }
 };
-

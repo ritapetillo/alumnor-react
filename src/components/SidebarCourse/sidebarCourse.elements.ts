@@ -71,6 +71,7 @@ export const CardSection = styled(Card)`
   border-radius: 0;
   margin-bottom: 0px;
   margin-top: 4px;
+  max-height: fit-content;
   border-bottom: 1px solid ${(props) => props.theme.secondaryColor} div {
     display: flex;
     flex-direction: column;

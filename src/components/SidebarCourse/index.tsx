@@ -4,7 +4,7 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { Row } from "../../styles/grid";
 import {
@@ -130,4 +130,4 @@ const SidebarCourse = () => {
   );
 };
 
-export default SidebarCourse;
+export default memo(SidebarCourse);
