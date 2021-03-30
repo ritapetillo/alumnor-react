@@ -11,6 +11,7 @@ import { RootStore } from "../../store";
 import { toggleModalAction } from "../../actions/modalActions";
 import CreateSectionForm from "../CreateSectionForm";
 import ActivityForm from "../ActivityForm";
+import Submissions from "../ActivityPage/Submissions";
 
 export interface IModalProps {
   component: string | {} | null;
@@ -35,6 +36,8 @@ const Modal = () => {
         return <CreateSectionForm />;
       case "newActivity":
         return <ActivityForm />;
+      
+   
       default:
         return "";
     }

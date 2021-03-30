@@ -89,14 +89,18 @@ const Video = ({ activity, refreshActivity }: IVideoProps) => {
           </RowColumn>
           <RowColumn>
             <h4 className="video-notes-title">Video Notes</h4>
-            <ReactQuill value={text} onChange={(e) => handleChange(e)} />
+            <ReactQuill value={text || ""} onChange={(e) => handleChange(e)} />
           </RowColumn>
         </>
       );
     } else {
       return (
         <>
-              <ReactPlayer url={activity?.videoLink} width={"100%"} controls={true}/>
+          <ReactPlayer
+            url={activity?.videoLink}
+            width={"100%"}
+            controls={true}
+          />
           <h3>{activity?.title}</h3>
           <p>{text ? parse(text) : ""}</p>
         </>

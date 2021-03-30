@@ -1,6 +1,7 @@
 interface IModalInitialState {
   isOpen: boolean;
-  type?: string;
+  type: string;
+  isMainOpen: boolean;
 }
 
 export default IModalInitialState;

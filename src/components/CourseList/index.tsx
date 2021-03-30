@@ -1,14 +1,18 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useMemo, useEffect } from "react";
+import { AiFillDelete } from "react-icons/ai";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { getCurrentUserCoursesAsInstructorAction } from "../../actions/courseAction";
 import { toggleModalAction } from "../../actions/modalActions";
+import { ICourse } from "../../interfaces/redux/states/ICourseInitialState";
 import { roles } from "../../libs/roles";
 import { RootStore } from "../../store";
-import { Col, Row } from "../../styles/grid";
-import { Card } from "../../styles/uiKit";
+import { Col, ImageCoverDiv, Row, SpaceBetweenRow } from "../../styles/grid";
+import { Card, MenuAppearing } from "../../styles/uiKit";
+import Coursecard from "../CourseCard";
 import CreateCourseForm from "../CreateCourseForm";
 import Modal from "../Modal";
 import { CourseCard, CreateNewCard } from "./courselist.elements";
@@ -35,14 +39,9 @@ const CourseList = ({ type }: CourseListProps) => {
   );
   const Courses = useMemo(() => {
     if (type === roles.INSTRUCTOR) {
-      return coursesInstructor.map((course: any) => (
+      return coursesInstructor.map((course: ICourse) => (
         <Col lg={4} md={6} sm={12}>
-          <CourseCard
-            onClick={() => history.push(`/courses/${course._id}/main`)}
-          >
-            <h4>{course.title}</h4>
-            <p>{course.description}</p>
-          </CourseCard>
+          <Coursecard course={course} />
         </Col>
       ));
     } else {

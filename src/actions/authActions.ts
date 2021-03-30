@@ -2,7 +2,7 @@ import { LOGIN_SUCCESS, LOGIN_LOADING, LOGIN_FAIL } from "./types";
 import axios from "axios";
 import { Dispatch } from "react";
 import { LoginDispachTypes } from "../interfaces/redux/actions/login";
-import { getCurrentUserApi, loginApi } from "../api/userApi";
+import { getCurrentUserApi, linkUserToZoom, loginApi } from "../api/userApi";
 import { getCurrentUserCoursesAsInstructorAction } from "./courseAction";
 
 export const loginAction = (email: string, password: string) => async (
@@ -31,14 +31,13 @@ export const getCurrentUserAction = () => async (
     dispatch({
       type: LOGIN_LOADING,
     });
+    const zoomLink = await linkUserToZoom();
     const currentUser = await getCurrentUserApi();
-    console.log(currentUser);
     if (currentUser) {
       dispatch({
         type: LOGIN_SUCCESS,
         payload: currentUser,
       });
-     
     } else throw Error;
   } catch (err) {
     dispatch({

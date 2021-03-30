@@ -1,5 +1,4 @@
-
-interface IUser  {
+interface IUser {
   firstName: string;
   lastName: string;
   email: string;
@@ -9,8 +8,13 @@ interface IUser  {
   dateBirth?: Date;
   verified?: boolean;
   role: string;
+  zoom: {
+    zoomId?: string;
+    zoomEmail?: string;
+    zoomMeetingRoom?: string;
+    zoomRefreshToken?: string;
+    zoomAccessToken?: string;
+  };
 }
-
-
 
 export default IUser;

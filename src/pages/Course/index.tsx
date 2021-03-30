@@ -11,6 +11,9 @@ import BarLoader from "react-spinners/BarLoader";
 import { CoursePageMain } from "../Courses/courses.elements";
 import ActivityPage from "../../components/ActivityPage";
 import withCourseSidebar from "../../HOC/withCourseSidebar";
+import CourseDetails from "../../components/CourseDetails";
+import ModalFeeds from "../../components/ModalMain";
+import FeedForm from "../../components/FeedForm";
 
 const override = css`
   display: block;
@@ -22,35 +25,53 @@ const Course = () => {
   const dispatch = useDispatch();
   const params: { courseId: string; activityId: string } = useParams();
   const isLoading = useSelector((state: RootStore) => state.courses.isLoading);
+  const currentUser = useSelector((state: RootStore) => state.auth.user);
   const modalStatus = useSelector((state: RootStore) => state.modal.isOpen);
+  const mainModal = useSelector((state: RootStore) => state.modal.isMainOpen);
 
   useEffect(() => {
     const { id }: any = params;
     if (id) {
       dispatch(getCurrentCourseAction(id));
     }
-  }, [params, modalStatus]);
+  }, [params.courseId, modalStatus, currentUser]);
+
+  const mainModalComponent = useMemo(() => {
+    if (mainModal)
+      return (
+        <ModalFeeds height={"400px"} width={"50vw"}>
+          <FeedForm />
+        </ModalFeeds>
+      );
+  }, [mainModal]);
 
   const ComponetToLoad = useMemo(() => {
-    if (params.activityId !=='main') {
+    if (params.activityId !== "main") {
       return <ActivityPage />;
     } else {
-      return <h1>No activity</h1>;
+      return <CourseDetails />;
     }
   }, [params]);
 
   if (isLoading)
     return (
-      <BarLoader
-        color={"#00bbf0"}
-        loading={isLoading}
-        css={override}
-        height={4}
-        width={"100vw"}
-      />
+      <>
+        <BarLoader
+          color={"#00bbf0"}
+          loading={isLoading}
+          css={override}
+          height={4}
+          width={"100vw"}
+        />
+      </>
     );
   else {
-    return <CoursePageMain>{ComponetToLoad}</CoursePageMain>;
+    return (
+      <CoursePageMain>
+        {ComponetToLoad}
+        {mainModalComponent}
+      </CoursePageMain>
+    );
   }
 };
 

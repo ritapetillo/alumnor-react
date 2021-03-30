@@ -6,6 +6,8 @@ import {
   GET_CURRENT_COURSE,
   CREATE_NEW_COURSE_SECTION,
   GET_CURRENT_SECTION,
+  SELECT_ACTIVITY,
+  SET_COURSE_EDIT_MODE,
 } from "../actions/types";
 import { CourseDispachTypes } from "../interfaces/redux/actions/course";
 import ICourseInitialState from "../interfaces/redux/states/ICourseInitialState";
@@ -19,12 +21,14 @@ const initialState: ICourseInitialState = {
   newCourse: "",
   cursesAsInstructor: [],
   newSection: "section",
+  isEditing: false,
 };
 
 const courseReducer = (
   state = initialState,
   { type, payload }: CourseDispachTypes
 ) => {
+ 
   switch (type) {
     case COURSE_LOADING:
       return {
@@ -67,6 +71,18 @@ const courseReducer = (
         currentSection: payload,
         errorMsg: "",
       };
+    case SELECT_ACTIVITY:
+      return {
+        ...state,
+        isLoading: false,
+        currentActivity: payload,
+        errorMsg: "",
+      };
+    case SET_COURSE_EDIT_MODE:
+      return {
+        ...state,
+        isEditing: payload,
+      };
     case COURSE_ERROR:
       return {
         ...state,
@@ -75,7 +91,7 @@ const courseReducer = (
         errorMsg: payload.errorMsg,
       };
     default:
-      return initialState;
+      return state;
   }
 };
 

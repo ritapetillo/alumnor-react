@@ -7,6 +7,7 @@ import {
   CREATE_NEW_COURSE_SECTION,
   GET_CURRENT_SECTION,
   SELECT_ACTIVITY,
+  SET_COURSE_EDIT_MODE,
 } from "../../../actions/types";
 import IAuthInitialState from "../states/IAuthInitialState";
 import { IActivity, ICourse, ISection } from "../states/ICourseInitialState";
@@ -47,6 +48,10 @@ export interface CourseError {
     type: string;
   };
 }
+export interface ToggleEditMode {
+  type: typeof SET_COURSE_EDIT_MODE;
+  payload: boolean;
+}
 
 export type CourseDispachTypes =
   | CourseLoading
@@ -56,4 +61,5 @@ export type CourseDispachTypes =
   | GetCurrentCourse
   | CreateNewSection
   | GetCurrentSection
-  | SelectActivity;
+  | SelectActivity
+  | ToggleEditMode;

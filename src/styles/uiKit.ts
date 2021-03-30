@@ -5,6 +5,9 @@ import styled, { css } from "styled-components";
 //Divider
 //Card
 //Switch Between Roles
+//RoundImage
+//Input .input
+//Input Container
 
 export const Logo = styled.div`
   font-family: "rubik";
@@ -128,6 +131,34 @@ export const TextArea = styled.textarea`
   }
 `;
 
+export const InputContainer = styled.div`
+  margin: 20px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  background-color: ${(props) => props.theme.primaryColor};
+  border-radius: 5px;
+  padding-right: 20px;
+
+  input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    width: 90%;
+    padding: 5px 10px;
+    color: ${(props) => props.theme.text};
+  }
+  svg {
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+      transform: translateX(-1px) translateY(-1px);
+    }
+  }
+`;
+
 export const ButtonLightBlue = styled.span`
   padding: 0px 20px;
   height: 40px;
@@ -177,4 +208,71 @@ export const CloudDetails = styled.div`
   line-height: 30px;
   text-align: center;
   color: ${(props) => props.theme.text};
+`;
+
+export const SpanLink = styled.span`
+  cursor: pointer;
+  padding: 20px 0;
+  font-weight: 500;
+  text-decoration: underline;
+`;
+
+export const LittleButtonSpans = styled.span`
+  padding: 5px 10px;
+  background-color: ${(props) => props.theme.secondaryColor};
+  color: ${(props) => props.theme.primaryColor};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: fit-content;
+  border-radius: 50px;
+  margin: 10px 5px;
+`;
+
+export const Table = styled.table`
+  width: 100%;
+  text-align: left;
+
+  a {
+    color: ${(props) => props.theme.text};
+  }
+  thead {
+    background-color: ${(props) => props.theme.secondaryColor};
+    color: ${(props) => props.theme.primaryColor};
+    th {
+      font-weight: 500;
+    }
+  }
+  tr {
+    height: 40px;
+  }
+  th {
+    padding: 0 10px;
+    border-bottom: 1px solid ${(props) => props.theme.primaryColorLighter};
+    font-weight: 300;
+  }
+`;
+
+export const MenuAppearing = styled.div`
+  position: absolute;
+  bottom: -28px;
+  right: 0;
+  width: 200px;
+  min-height: 40px;
+  background-color: ${(props) => props.theme.primaryColor};
+  -webkit-box-shadow: 6px 5px 29px 0px #bfbfbf;
+  box-shadow: 6px 5px 29px 0px #bfbfbf;
+  z-index: 333;
+  border-radius: 5px;
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    height: 40px;
+    color: ${(props) => props.theme.text};
+    svg {
+      position: static;
+    }
+  }
 `;

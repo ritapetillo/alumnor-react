@@ -19,3 +19,4 @@ export const darkTheme = {
   gradient: "linear-gradient(#39598A, #79D7ED)",
   fontPrimary: "Roboto",
 };
+

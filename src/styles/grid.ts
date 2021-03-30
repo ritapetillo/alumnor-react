@@ -63,3 +63,19 @@ export const RowColumn = styled.div`
   max-width: 1600px;
   width: 100%;
 `;
+interface IImageCoverDiv {
+  height: number | string;
+  width: number | string;
+  radius: number | string;
+}
+
+export const ImageCoverDiv = styled.div<IImageCoverDiv>`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: ${(props) => props.radius};
+  }
+`;

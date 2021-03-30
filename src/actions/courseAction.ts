@@ -7,6 +7,7 @@ import {
   GET_CURRENT_SECTION,
   GET_CURRENT_USER_COURSES_AS_INSTRUCTOR,
   SELECT_ACTIVITY,
+  SET_COURSE_EDIT_MODE,
 } from "./types";
 import axios from "axios";
 import { CourseDispachTypes } from "../interfaces/redux/actions/course";
@@ -101,8 +102,7 @@ export const createANewSectionAction = (id: string, data: {}) => async (
     dispatch({
       type: COURSE_LOADING,
     });
-    console.log(id);
-    console.log(data);
+
     const session = await createANewSession(id, data);
     if (!session) throw Error;
     dispatch({
@@ -127,7 +127,7 @@ export const getCurrentSectionAction = (data: ISection) => async (
     dispatch({
       type: COURSE_LOADING,
     });
-    console.log(data);
+
     dispatch({
       type: GET_CURRENT_SECTION,
       payload: data,
@@ -147,7 +147,7 @@ export const selectActivityAction = (id: string) => async (
   dispatch: Dispatch<CourseDispachTypes>
 ) => {
   try {
-    const activity = await getActivityById(id);
+    const activity: IActivity = await getActivityById(id);
     if (activity) {
       dispatch({
         type: SELECT_ACTIVITY,
@@ -163,4 +163,13 @@ export const selectActivityAction = (id: string) => async (
       },
     });
   }
+};
+
+export const toggleEditCourseMode = (status:boolean) => async (
+  dispatch: Dispatch<CourseDispachTypes>
+) => {
+  dispatch({
+    type: SET_COURSE_EDIT_MODE,
+    payload: status,
+  });
 };

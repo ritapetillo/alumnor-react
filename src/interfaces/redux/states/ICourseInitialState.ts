@@ -7,6 +7,7 @@ interface ICourseInitialState {
   newCourse?: string;
   cursesAsInstructor: [ICourse] | [] | "";
   newSection?: string | "";
+  isEditing: boolean;
 }
 
 export interface ISection {
@@ -43,13 +44,12 @@ export interface IActivity {
   completed?: boolean;
   createdBy: string;
   type: string;
-  submissions?: [string];
+  submissions?: [ISubmission];
   courseId: string;
   sectionId: string;
-  liveLink?: string;
   recordingLink?: string;
   videoLink?: string;
-  liveZoomMeeting: IZoomLink;
+  liveMeeting: IZoomLink;
 }
 
 export interface IZoomLink {
@@ -57,9 +57,10 @@ export interface IZoomLink {
   duration?: number;
   host_id?: string;
   id?: number;
-  join_url?: string;
+  join_url: string;
   settings?: Settings;
   password: string;
+  start_time: Date;
 }
 export interface Settings {
   alternative_hosts?: string;
@@ -107,5 +108,12 @@ export interface RoomsEntity {
   participants?: string[] | null;
 }
 
-
+export interface ISubmission {
+  _id: string;
+  userId: string;
+  assignmentId: string;
+  courseId: string;
+  uploads: [string];
+  links: [string];
+}
 export default ICourseInitialState;

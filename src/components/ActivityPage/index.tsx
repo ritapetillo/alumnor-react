@@ -9,6 +9,8 @@ import { ActivityPageWrapper } from "./activityPage.elements";
 import Live from "./Live";
 import Materials from "./Materials";
 import Video from "./Video";
+import Assignment from "./Assignment";
+import Submissions from "./Submissions";
 
 const ActivityPage = () => {
   const params: { activityId: string } = useParams();
@@ -17,30 +19,39 @@ const ActivityPage = () => {
 
   const getActivityData = async () => {
     const activityData: IActivity = await getActivityById(params.activityId);
-    // dispatch(selectActivityAction(params.activityId));
+    dispatch(selectActivityAction(params.activityId));
 
     if (activityData) {
       setActivity(activityData);
     } else return null;
   };
   useEffect(() => {
+    // dispatch(selectActivityAction(params.activityId));
+
     getActivityData();
   }, [params]);
 
   const activityToLoad = useMemo(() => {
     if (!activity) return "";
-    switch (activity.type) {
-      case "materials":
-        return (
-          <Materials activity={activity} refreshActivity={getActivityData} />
-        );
-      case "video":
-        return <Video activity={activity} refreshActivity={getActivityData} />;
-      case "live":
-        return <Live activity={activity} refreshActivity={getActivityData} />;
-      default:
-        return <h1>Default</h1>;
-    }
+    if (activity)
+      switch (activity.type) {
+        case "materials":
+          return (
+            <Materials activity={activity} refreshActivity={getActivityData} />
+          );
+        case "video":
+          return (
+            <Video activity={activity} refreshActivity={getActivityData} />
+          );
+        case "live":
+          return <Live activity={activity} refreshActivity={getActivityData} />;
+        case "assignment":
+          return (
+            <Assignment activity={activity} refreshActivity={getActivityData} />
+          );
+        default:
+          return <h1>Default</h1>;
+      }
   }, [params, activity]);
   return (
     <ActivityPageWrapper>

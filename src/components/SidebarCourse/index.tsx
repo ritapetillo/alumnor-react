@@ -4,24 +4,28 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, { EventHandler, memo, useEffect, useMemo, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { Row } from "../../styles/grid";
 import {
   SidebarCourseWrapper,
   SidebarCourseAddButton,
-  CardSection,
-  ButtonAdd,
-  Activity,
   SectionWrapper,
+  ImageSideBar,
+  HeaderSidebar,
+  SideBarLoader,
 } from "./sidebarCourse.elements";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../store";
 import { toggleModalAction } from "../../actions/modalActions";
-import { editCourse } from "../../api/courseApi";
+import { editCourse, uploadCoursePicture } from "../../api/courseApi";
 import Section from "./Section";
 import { ISection } from "../../interfaces/redux/states/ICourseInitialState";
+import { Ellipsis } from "react-css-spinners";
+import { Card, LittleButtonSpans, SpanLink } from "../../styles/uiKit";
+import { AiFillEdit, AiFillPicture } from "react-icons/ai";
+import { getCurrentCourseAction } from "../../actions/courseAction";
 
 const SidebarCourse = () => {
   const history = useHistory();
@@ -32,11 +36,13 @@ const SidebarCourse = () => {
     (state: RootStore) => state.courses.currentCourse
   );
   const loading = useSelector((state: RootStore) => state.courses.isLoading);
-  const modalStatus = useSelector((state: RootStore) => state.modal.isOpen);
+  const currentUser = useSelector((state: RootStore) => state.auth.isLoading);
 
   useEffect(() => {
-    setSections(currentCourse.sections);
-  }, [currentCourse]);
+    if (currentCourse) {
+      setSections(currentCourse.sections);
+    }
+  }, [currentCourse, loading, currentUser]);
 
   useEffect(() => {
     setSections(currentCourse.sections);
@@ -67,7 +73,6 @@ const SidebarCourse = () => {
     // if (reorder) {
     //   dispatch(getCurrentCourseAction(id));
     // }
-    console.log(sections);
     const newArray = sections;
     const item = sections[from];
     moveInArray(newArray, from, to, item);
@@ -77,8 +82,24 @@ const SidebarCourse = () => {
     editCourse(id, { sections: sectionsId });
   };
 
+  const handleUploadPicture = async (e: any) => {
+    try {
+      console.log("here");
+      console.log(e.target.files[0]);
+      const picture = e.target.files[0];
+      const formData = new FormData();
+      formData.append("picture", picture);
+      const upload = await uploadCoursePicture(currentCourse._id, formData);
+      if (upload) {
+        dispatch(getCurrentCourseAction(currentCourse._id));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const sectionsBar = useMemo(() => {
-    if (sections) {
+    if (sections && !loading) {
       return (
         <DragDropContext onDragEnd={handleMovement}>
           <Droppable droppableId="characters">
@@ -110,15 +131,49 @@ const SidebarCourse = () => {
           </Droppable>
         </DragDropContext>
       );
-    }
-  }, [loading, sections]);
+    } else
+      return (
+        <SideBarLoader>
+          <Ellipsis className="loader" />
+        </SideBarLoader>
+      );
+  }, [loading, sections, currentUser, currentCourse]);
 
   return (
     <SidebarCourseWrapper>
       <Row className="arrow" onClick={() => history.push(`/courses`)}>
         <FontAwesomeIcon icon={faChevronLeft} /> <span>Back to Courses</span>
       </Row>
-      <h4>{currentCourse?.title}</h4>
+      <ImageSideBar>
+        <label htmlFor="picture">
+          <img
+            src={
+              currentCourse.picture ||
+              "https://elearningindustry.com/wp-content/uploads/2020/01/designing-effective-elearning-courses.jpg"
+            }
+            alt=""
+          />
+          <input
+            type="file"
+            id="picture"
+            style={{ display: "none" }}
+            onChange={handleUploadPicture}
+          />
+          <LittleButtonSpans>
+            Upload Picture
+            <AiFillPicture />
+          </LittleButtonSpans>
+        </label>
+      </ImageSideBar>
+      <HeaderSidebar>
+        <SpanLink
+          onClick={() => history.push(`/courses/${currentCourse._id}/main`)}
+          style={{ textDecoration: "none" }}
+        >
+          {currentCourse?.title}
+        </SpanLink>
+      </HeaderSidebar>
+
       {sectionsBar}
       <SidebarCourseAddButton>
         <span onClick={() => dispatch(toggleModalAction(true, "newSection"))}>
@@ -130,4 +185,4 @@ const SidebarCourse = () => {
   );
 };
 
-export default memo(SidebarCourse);
+export default SidebarCourse;

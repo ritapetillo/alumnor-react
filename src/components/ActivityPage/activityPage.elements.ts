@@ -2,33 +2,46 @@ import styled from "styled-components";
 import { Row } from "../../styles/grid";
 
 export const ActivityPageWrapper = styled.div`
-  color: ${(props) => props.theme.textSecondary};
-  background-color: ${(props) => props.theme.primaryColor};
-  .quill {
-    height: 400px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    .ql-toolbar.ql-snow {
-      background-color: rgb(253, 253, 253);
-    }
-  }
-  .MuiDropzoneArea-root {
-    min-height: 100px;
-    background-color: ${(props) => props.theme.primaryColor};
-    svg {
-      font-size: 20px;
-      color: ${(props) => props.theme.text};
-    }
-    margin-top: 40px;
-  }
-  .MuiTypography-h5 {
-    font-size: 15px;
-  }
-  .MuiDropzoneArea-icon {
-    height: 30px;
-    margin-top: -20px;
-  }
-`;
+         color: ${(props) => props.theme.textSecondary};
+         background-color: ${(props) => props.theme.primaryColor};
+         width: calc(100vw - 400px);
+         @media screen and (max-width: 768px) {
+           width: 100%;
+         }
+         .quill {
+           height: 400px;
+           margin-top: 30px;
+           margin-bottom: 30px;
+           .ql-toolbar.ql-snow {
+             background-color: rgb(253, 253, 253);
+           }
+         }
+         .MuiDropzoneArea-root {
+           min-height: 100px;
+           background-color: ${(props) => props.theme.primaryColor};
+           svg {
+             font-size: 20px;
+             color: ${(props) => props.theme.text};
+           }
+           margin-top: 40px;
+         }
+         .MuiTypography-h5 {
+           font-size: 15px;
+         }
+         .MuiDropzoneArea-icon {
+           height: 30px;
+           margin-top: -20px;
+         }
+         .form-control {
+           padding: 10px;
+           border: 1px solid ${(props) => props.theme.text};
+           background-color: ${(props) => props.theme.primaryColor};
+           color: ${(props) => props.theme.text};
+         }
+         .rdtPicker {
+           background-color: ${(props) => props.theme.primaryColor};
+         }
+       `;
 
 export const IconsEditViewWrapper = styled.div`
   display: flex;
@@ -105,6 +118,9 @@ export const ContentWrap = styled.div`
 
 export const VideoPageWrap = styled.div`
   width: 100%;
+  a:visited {
+    color: ${(props) => props.theme.text};
+  }
 
   .video-link-input {
     width: 80%;
@@ -114,5 +130,63 @@ export const VideoPageWrap = styled.div`
 
   .video-notes-title {
     margin-bottom: -0px;
+  }
+  .quill {
+    height: 150px;
+    margin-bottom: 30px;
+  }
+  
+`;
+export const ButtonDark = styled.div`
+  /* width: 200px; */
+  height: 40px;
+  background: ${(props) => props.theme.secondaryColor};
+  color: ${(props) => props.theme.primaryColor};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin: 30px 0;
+  border-radius: 3px;
+  cursor: pointer;
+`;
+
+export const AssignmentPageWrap = styled.div`
+  width: 100%;
+  a:visited {
+    color: ${(props) => props.theme.text};
+  }
+`;
+
+export const SubmissionWrap = styled.div`
+  margin-top: 40px;
+  width: 100%;
+  padding: 20px;
+  background-color: ${(props) => props.theme.primaryColorLighter};
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+
+  a:visited {
+    color: ${(props) => props.theme.text};
+  }
+`;
+
+export const SubmissionDoneWrap = styled.div`
+  background-color: transparent;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  svg {
+    font-size: 30px;
+  }
+  h4 {
+    background-color: ${(props) => props.theme.primaryColor};
   }
 `;

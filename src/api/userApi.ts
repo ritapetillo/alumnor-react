@@ -49,3 +49,20 @@ export const getCurrentUrl = async (currentUrl: string) => {
     return null;
   }
 };
+
+export const linkUserToZoom = async () => {
+  try {
+    
+    const axiosConfig: {} = {
+      method: "put",
+      url: `${config.BE_URI}/auth/zoom/link-account`,
+      data: ""
+    };
+    const res = await axios(axiosConfig);
+    const data = await res.data;
+    if (data) return data;
+    else return null;
+  } catch (err) {
+    return null;
+  }
+};

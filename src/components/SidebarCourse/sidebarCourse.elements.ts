@@ -9,8 +9,17 @@ export const SidebarCourseWrapper = styled(SideBar)`
   height: calc(100vh - 40px);
   border-right: 1px solid ${(props) => props.theme.primaryColorLighter};
   overflow-y: scroll;
+  overflow-x: hidden;
   padding-bottom: 100px;
+  position: relative;
 
+  .loader {
+    height: 100vh;
+    margin-top: 200px;
+    div {
+      background-color: ${(props) => props.theme.secondaryColor};
+    }
+  }
   .arrow {
     padding: 10px 10px;
     cursor: pointer;
@@ -66,16 +75,26 @@ export const CardSection = styled(Card)`
   position: relative;
   background-color: rgb(221, 221, 221, 0.15);
   min-height: 0;
-  padding: 10px 20px;
+  padding: 5px 20px;
   text-align: left;
   border-radius: 0;
   margin-bottom: 0px;
   margin-top: 4px;
   max-height: fit-content;
-  border-bottom: 1px solid ${(props) => props.theme.secondaryColor} div {
+  border-bottom: 1px solid ${(props) => props.theme.primaryColor};
+  .input-section {
+    width: 70%;
+  }
+  /* div {
     display: flex;
     flex-direction: column;
+  } */
+  .arrow-section {
+    bottom: 3px;
+    right: 25px;
+    color: ${(props) => props.theme.primaryColorLighter};
   }
+
   h4 {
     margin-top: 6px;
     margin-bottom: 6px;
@@ -167,4 +186,54 @@ export const CloudSidebar = styled(CloudDetails)`
   border-radius: 3px;
   height: 20px;
   font-size: 8px;
+`;
+
+export const ImageSideBar = styled.div`
+  width: 100%;
+  height: 200px;
+  position: relative;
+  &:hover {
+    span {
+      opacity: 1;
+    }
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  span {
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    cursor: pointer;
+  }
+`;
+
+export const HeaderSidebar = styled.div`
+  margin: 10px 0;
+  border-bottom: 1px solid ${(props) => props.theme.primaryColorLighter};
+  padding: 10px 20px;
+  width: 100%;
+  span {
+    font-weight: 600;
+    font-size: 20px;
+  }
+`;
+
+export const SideBarLoader = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: ${(props) => props.theme.primaryColor};
+  z-index: 3333;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

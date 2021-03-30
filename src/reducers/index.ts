@@ -4,6 +4,8 @@ import courseReducer from "./courseReducer";
 import modalReducer from "./modalReducer";
 import sidebarReducer from "./sidebarReducer";
 import themeReducer from "./themeReducer";
+import { withReduxStateSync } from "redux-state-sync";
+import feedsReducer from "./feedsReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -11,4 +13,5 @@ export default combineReducers({
   courses: courseReducer,
   modal: modalReducer,
   sidebar: sidebarReducer,
+  feeds: feedsReducer,
 });

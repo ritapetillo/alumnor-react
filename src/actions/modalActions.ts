@@ -1,4 +1,4 @@
-import { OPEN_MODAL, CLOSE_MODAL } from "./types";
+import { OPEN_MODAL, CLOSE_MODAL, SET_COURSE_EDIT_MODE, TOGGLE_MAIN_MODAL } from "./types";
 import { Dispatch } from "react";
 import { ModalDispachTypes } from "../interfaces/redux/actions/modal";
 
@@ -8,7 +8,7 @@ export const toggleModalAction = (bool: boolean, type: string = "") => async (
   if (bool === true) {
     dispatch({
       type: OPEN_MODAL,
-      payload: { isOpen: bool, type },
+      payload: { isOpen: bool, type:type },
     });
   } else {
     dispatch({
@@ -17,3 +17,16 @@ export const toggleModalAction = (bool: boolean, type: string = "") => async (
     });
   }
 };
+
+
+export const toggleMainModalAction = (bool: boolean) => async (
+  dispatch: Dispatch<ModalDispachTypes>
+) => {
+ 
+    dispatch({
+      type: TOGGLE_MAIN_MODAL,
+      payload: { isOpen: bool, type:"" },
+    });
+
+};
+
