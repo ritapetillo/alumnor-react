@@ -27,7 +27,7 @@ const modalReducer = (state = initialState, action: ModalDispachTypes) => {
       return {
         ...state,
         isMainOpen: !state.isMainOpen,
-        type: "",
+        type: payload.type,
       };
 
     default:

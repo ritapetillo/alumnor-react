@@ -67,7 +67,7 @@ const Submissions = ({ activity, edit, refreshActivity }: ISubmission) => {
         formData
       );
     }
-
+    refreshActivity();
     dispatch(selectActivityAction(params.activityId));
   };
   const handleEnter = (e?: React.KeyboardEvent<HTMLInputElement> | "") => {

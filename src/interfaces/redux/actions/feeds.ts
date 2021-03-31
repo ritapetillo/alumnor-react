@@ -3,6 +3,7 @@ import {
   FEEDS_LOADING,
   CREATE_NEW_FEED,
   GET_ALL_FEEDS,
+  SELECT_FEED,
 } from "../../../actions/types";
 
 export interface FeedsLoading {
@@ -15,15 +16,20 @@ export interface GetCurrentCourseFeeds {
 }
 export interface CreateNewFeed {
   type: typeof CREATE_NEW_FEED;
-  payload: string;
+  payload: any;
 }
 export interface FeedError {
   type: typeof FEEDS_ERROR;
-  payload: {};
+  payload: any;
+}
+export interface SelectFeed {
+  type: typeof SELECT_FEED;
+  payload: any;
 }
 
 export type FeedsDispachTypes =
   | FeedsLoading
   | CreateNewFeed
   | GetCurrentCourseFeeds
-  | FeedError;
+  | FeedError
+  | SelectFeed;

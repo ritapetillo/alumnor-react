@@ -50,6 +50,7 @@ export interface IActivity {
   recordingLink?: string;
   videoLink?: string;
   liveMeeting: IZoomLink;
+  createdAt: Date;
 }
 
 export interface IZoomLink {

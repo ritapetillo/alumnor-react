@@ -19,13 +19,13 @@ export const toggleModalAction = (bool: boolean, type: string = "") => async (
 };
 
 
-export const toggleMainModalAction = (bool: boolean) => async (
+export const toggleMainModalAction = (bool: boolean,type: string = "") => async (
   dispatch: Dispatch<ModalDispachTypes>
 ) => {
  
     dispatch({
       type: TOGGLE_MAIN_MODAL,
-      payload: { isOpen: bool, type:"" },
+      payload: { isOpen: bool, type:type },
     });
 
 };

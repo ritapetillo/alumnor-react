@@ -30,6 +30,9 @@ const CourseList = ({ type }: CourseListProps) => {
   useEffect(() => {
     dispatch(getCurrentUserCoursesAsInstructorAction());
   }, []);
+  useEffect(() => {
+    dispatch(getCurrentUserCoursesAsInstructorAction());
+  }, [modalStatus]);
 
   const handleModal = () => {
     dispatch(toggleModalAction(true, "newCourse"));

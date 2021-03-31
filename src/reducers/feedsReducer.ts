@@ -3,6 +3,7 @@ import {
   GET_ALL_FEEDS,
   FEEDS_ERROR,
   FEEDS_LOADING,
+  SELECT_FEED,
 } from "../actions/types";
 import { FeedsDispachTypes } from "../interfaces/redux/actions/feeds";
 import ICourseInitialState from "../interfaces/redux/states/ICourseInitialState";
@@ -10,13 +11,14 @@ import { IFeedsInitialState } from "../interfaces/redux/states/IFeedsInitialStat
 
 const initialState: IFeedsInitialState = {
   currentFeeds: [],
+  // newFeed: null,
   isLoading: false,
   errorMsg: null,
-  newFeed: null,
+  selectedFeed: null,
 };
 
 const feedsReducer = (
-  state = initialState,
+  state: IFeedsInitialState = initialState,
   { type, payload }: FeedsDispachTypes
 ) => {
   switch (type) {
@@ -30,22 +32,28 @@ const feedsReducer = (
       return {
         ...state,
         isLoading: false,
-        newFeed: payload,
-        errorMsg: "",
+        // newFeed: payload,
+        errorMsg: null,
       };
     case GET_ALL_FEEDS:
       return {
         ...state,
         isLoading: false,
         currentFeeds: payload,
-        errorMsg: "",
+        errorMsg: null,
+      };
+
+    case SELECT_FEED:
+      return {
+        ...state,
+        isLoading: false,
+        selectedFeed: payload.selectedFeed,
       };
 
     case FEEDS_ERROR:
       return {
         ...state,
         isLoading: false,
-        [payload.type]: "",
         errorMsg: payload.errorMsg,
       };
     default:

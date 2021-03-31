@@ -31,3 +31,4 @@ export const CREATE_NEW_FEED = "CREATE_NEW_FEED";
 export const GET_ALL_FEEDS = "GET_ALL_FEEDS";
 export const FEEDS_LOADING = "FEEDS_LOADING";
 export const FEEDS_ERROR = "FEEDS_ERROR";
+export const SELECT_FEED = "SELECT_FEED";

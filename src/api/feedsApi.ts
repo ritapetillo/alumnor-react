@@ -61,3 +61,44 @@ export const deleteFeed = async (id: string, courseId: string) => {
     return null;
   }
 };
+
+///COMMENTS
+
+export const createNewComment = async (
+  courseId: string,
+  feedId: string,
+  data: {}
+) => {
+  try {
+    const axiosConfig: {} = {
+      method: "post",
+      url: `${config.BE_URI}/feeds/${courseId}/comment/${feedId}/new`,
+      data,
+    };
+    const resp = await axios(axiosConfig);
+    const { feed } = await resp.data;
+    return feed;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+export const deleteComment = async (
+  courseId: string,
+  feedId: string,
+  commentId: string
+) => {
+  try {
+    const axiosConfig: {} = {
+      method: "delete",
+      url: `${config.BE_URI}/feeds/${courseId}/comment/${feedId}/delete/${commentId}`,
+    };
+    const resp = await axios(axiosConfig);
+    const { feed } = await resp.data;
+    return feed;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};

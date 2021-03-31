@@ -167,7 +167,10 @@ const SidebarCourse = () => {
       </ImageSideBar>
       <HeaderSidebar>
         <SpanLink
-          onClick={() => history.push(`/courses/${currentCourse._id}/main`)}
+          onClick={() => {
+            dispatch(getCurrentCourseAction(currentCourse._id));
+            history.push(`/courses/${currentCourse._id}/main`);
+          }}
           style={{ textDecoration: "none" }}
         >
           {currentCourse?.title}

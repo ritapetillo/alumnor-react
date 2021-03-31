@@ -4,6 +4,11 @@
 @use '../../sass/breakpoints' as *;
 
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100vw;
   font-family: $font-family-roboto;
   background-color: $color-blue-dark-primary;
   height: 80px;

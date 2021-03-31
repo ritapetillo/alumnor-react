@@ -2,53 +2,53 @@ import styled from "styled-components";
 import { Row } from "../../styles/grid";
 
 export const ActivityPageWrapper = styled.div`
-         color: ${(props) => props.theme.textSecondary};
-         background-color: ${(props) => props.theme.primaryColor};
-         width: calc(100vw - 400px);
-         @media screen and (max-width: 768px) {
-           width: 100%;
-         }
-         .quill {
-           height: 400px;
-           margin-top: 30px;
-           margin-bottom: 30px;
-           .ql-toolbar.ql-snow {
-             background-color: rgb(253, 253, 253);
-           }
-         }
-         .MuiDropzoneArea-root {
-           min-height: 100px;
-           background-color: ${(props) => props.theme.primaryColor};
-           svg {
-             font-size: 20px;
-             color: ${(props) => props.theme.text};
-           }
-           margin-top: 40px;
-         }
-         .MuiTypography-h5 {
-           font-size: 15px;
-         }
-         .MuiDropzoneArea-icon {
-           height: 30px;
-           margin-top: -20px;
-         }
-         .form-control {
-           padding: 10px;
-           border: 1px solid ${(props) => props.theme.text};
-           background-color: ${(props) => props.theme.primaryColor};
-           color: ${(props) => props.theme.text};
-         }
-         .rdtPicker {
-           background-color: ${(props) => props.theme.primaryColor};
-         }
-       `;
+  color: ${(props) => props.theme.textSecondary};
+  background-color: ${(props) => props.theme.primaryColor};
+  width: calc(100vw - 400px);
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+  .quill {
+    height: 400px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    .ql-toolbar.ql-snow {
+      background-color: rgb(253, 253, 253);
+    }
+  }
+  .MuiDropzoneArea-root {
+    min-height: 100px;
+    background-color: ${(props) => props.theme.primaryColor};
+    svg {
+      font-size: 20px;
+      color: ${(props) => props.theme.text};
+    }
+    margin-top: 40px;
+  }
+  .MuiTypography-h5 {
+    font-size: 15px;
+  }
+  .MuiDropzoneArea-icon {
+    height: 30px;
+    margin-top: -20px;
+  }
+  .form-control {
+    padding: 10px;
+    border: 1px solid ${(props) => props.theme.text};
+    background-color: ${(props) => props.theme.primaryColor};
+    color: ${(props) => props.theme.text};
+  }
+  .rdtPicker {
+    background-color: ${(props) => props.theme.primaryColor};
+  }
+`;
 
 export const IconsEditViewWrapper = styled.div`
   display: flex;
   position: absolute;
-  top: 120px;
+  top: 100px;
   right: 80px;
-  width: 40px;
+  max-width: 80px;
   cursor: pointer;
   color: ${(props) => props.theme.textSecondary};
   font-size: 24px;
@@ -135,7 +135,6 @@ export const VideoPageWrap = styled.div`
     height: 150px;
     margin-bottom: 30px;
   }
-  
 `;
 export const ButtonDark = styled.div`
   /* width: 200px; */

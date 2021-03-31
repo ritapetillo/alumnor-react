@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
 import { AiFillEdit, AiFillSetting, AiOutlineClose } from "react-icons/ai";
+import { FiShare } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { toggleEditCourseMode } from "../../actions/courseAction";
 import { RootStore } from "../../store";
 import { IconsEditViewWrapper } from "../ActivityPage/activityPage.elements";
@@ -12,6 +14,7 @@ const CourseDetails = () => {
   const currentCourse = useSelector(
     (state: RootStore) => state.courses.currentCourse
   );
+  const history = useHistory();
   const isEditing = useSelector((state: RootStore) => state.courses.isEditing);
   const dispatch = useDispatch();
 
@@ -33,6 +36,9 @@ const CourseDetails = () => {
           <IconsEditViewWrapper>
             <AiFillSetting
               onClick={() => dispatch(toggleEditCourseMode(true))}
+            />
+            <FiShare
+              onClick={() => history.push(`/view/courses/${currentCourse._id}`)}
             />
           </IconsEditViewWrapper>
           <CourseDetailsView />

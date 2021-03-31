@@ -265,14 +265,37 @@ export const MenuAppearing = styled.div`
   z-index: 333;
   border-radius: 5px;
   div {
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 10px 15px;
     height: 40px;
     color: ${(props) => props.theme.text};
+    border-bottom: 1px solid ${(props) => props.theme.primaryColorLighter};
+    &:hover {
+      svg {
+        filter: contrast(0%);
+      }
+      font-weight: 600;
+    }
+
     svg {
       position: static;
     }
+  }
+`;
+
+export const ImageRound = styled.div<{ height?: string; width?: string }>`
+  height: ${(props) => props.height || "40px"};
+  width: ${(props) => props.width || "40px"};
+  border-radius: 100px;
+  overflow: hidden;
+  margin: 0px 10px 0 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;

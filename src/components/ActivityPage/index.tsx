@@ -32,8 +32,11 @@ const ActivityPage = () => {
   }, [params]);
 
   const activityToLoad = useMemo(() => {
-    if (!activity) return "";
-    if (activity)
+    if (!activity) {
+      console.log("no activity");
+      return "";
+    }
+    if (activity) {
       switch (activity.type) {
         case "materials":
           return (
@@ -52,6 +55,7 @@ const ActivityPage = () => {
         default:
           return <h1>Default</h1>;
       }
+    }
   }, [params, activity]);
   return (
     <ActivityPageWrapper>

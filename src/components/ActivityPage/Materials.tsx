@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ReactQuill from "react-quill"; // Typescript
 import { Col, Row, RowColumn } from "../../styles/grid";
-import "react-quill/dist/quill.snow.css"; 
+import "react-quill/dist/quill.snow.css";
 import { useDispatch, useSelector } from "react-redux";
 import parse from "html-react-parser";
 import IconEditView from "./IconEditView";
@@ -35,6 +35,7 @@ import { RootStore } from "../../store";
 import StudentSubmission from "../StudentSubmissions";
 import ModalSubmission from "../ModalSubmissions";
 import { LittleButtonSpans } from "../../styles/uiKit";
+import { getCurrentCourseAction } from "../../actions/courseAction";
 
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
@@ -88,6 +89,7 @@ const Materials = ({ activity, refreshActivity, task }: IMaterialProps) => {
   const params: { id: string; activityId: string } = useParams();
   const currentUser = useSelector((state: RootStore) => state.auth.user);
   const [modal, setModal] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (activity) {
@@ -169,7 +171,7 @@ const Materials = ({ activity, refreshActivity, task }: IMaterialProps) => {
               )}
               <h4>Assigment Dealine</h4>
               <Datetime
-                initialValue={moment()}
+                initialValue={activity.deadline || moment()}
                 onChange={(e) => setDeadline(e.toString())}
               />
             </RowColumn>
@@ -193,6 +195,14 @@ const Materials = ({ activity, refreshActivity, task }: IMaterialProps) => {
             <h3>{activity?.type.capitalize()}</h3>
             <p>{text ? parse(text) : ""}</p>
           </ContentWrap>
+
+          {activity && activity.type == "assignment" && (
+            <ContentWrap>
+              <h3>{activity?.type.capitalize()} Deadline</h3>
+              {moment(activity.deadline).format("MM-DD-YYYY hh:mm a")}
+            </ContentWrap>
+          )}
+
           <h3>Uploads</h3>
         </>
       );

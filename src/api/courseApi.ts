@@ -199,8 +199,24 @@ export const getActivityById = async (id: string) => {
       url: `${config.BE_URI}/activities/${id}`,
     };
     const resp = await axios(axiosConfig);
+    console.log(resp);
     const { activity } = await resp.data;
     return activity;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+export const getActivitiesByQuery = async (courseId: string, query: string) => {
+  try {
+    const axiosConfig: {} = {
+      method: "get",
+      url: `${config.BE_URI}/activities/${courseId}?${query}`,
+    };
+    const resp = await axios(axiosConfig);
+    const { activities } = await resp.data;
+    return activities;
   } catch (err) {
     console.log(err);
     return null;
@@ -396,16 +412,12 @@ export const editSubmission = async (
   }
 };
 
-export const getAllSubmissionByCourse = async (
-  courseId: string,
-
-) => {
+export const getAllSubmissionByCourse = async (courseId: string) => {
   try {
     const axiosConfig: {} = {
       method: "get",
 
       url: `${config.BE_URI}/submissions/${courseId}`,
-    
     };
     const resp = await axios(axiosConfig);
     const { submissions } = await resp.data;

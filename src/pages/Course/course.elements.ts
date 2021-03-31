@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Row } from "../../styles/grid";
 
 export const CourseWrapper = styled.div`
   display: flex;
@@ -11,6 +12,11 @@ export const CourseWrapper = styled.div`
 `;
 
 export const CoursePageMain = styled.div`
+  width: 100vw;
+  padding: 50px;
+  min-height: 100vh;
+`;
+export const CoursePageRow = styled(Row)`
   width: 100vw;
   padding: 50px;
 `;

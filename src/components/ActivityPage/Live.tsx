@@ -25,6 +25,7 @@ import "react-datetime/css/react-datetime.css";
 import moment from "moment";
 import { Button } from "@material-ui/core";
 import { ContactSupportOutlined } from "@material-ui/icons";
+import { getCurrentCourseAction } from "../../actions/courseAction";
 
 interface ILiveProps {
   activity: IActivity | undefined;
