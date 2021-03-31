@@ -40,20 +40,23 @@ const CardCourseDash = ({
   return (
     <CardCourseDashWrap>
       <h3>{title}</h3>
-      {activities.map((activity: IActivity) => (
-        <Link to={`/courses/${activity.courseId}/${activity._id}`}>
-          {" "}
-          <span>
-            <div>
-              {dateToRender(activity)} {activity.title}
-            </div>
-            <div>
-              {activity.type === "assignment" &&
-                iconToReturn(currentUserId, activity)}
-            </div>
-          </span>
-        </Link>
-      ))}
+      {activities.map(
+        (activity: IActivity, index: number) =>
+          index < 5 && (
+            <Link to={`/courses/${activity.courseId}/${activity._id}`}>
+              {" "}
+              <span>
+                <div>
+                  {dateToRender(activity)} {activity.title}
+                </div>
+                <div>
+                  {activity.type === "assignment" &&
+                    iconToReturn(currentUserId, activity)}
+                </div>
+              </span>
+            </Link>
+          )
+      )}
     </CardCourseDashWrap>
   );
 };

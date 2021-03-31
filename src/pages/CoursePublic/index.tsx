@@ -73,11 +73,11 @@ const CoursePublic = () => {
         <CoursePageWrapBottom>
           <Col sm={6}>
             <CoursePageCard>
-            
               <h3>Course Highlights</h3>
               {currentCourse.highlights}
               <h3>Schedule Description</h3>
-              {parse(currentCourse.scheduleDescription)}
+              {currentCourse.scheduleDescription &&
+                parse(currentCourse.scheduleDescription)}
             </CoursePageCard>
           </Col>
         </CoursePageWrapBottom>
