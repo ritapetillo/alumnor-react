@@ -1,4 +1,4 @@
-import { LOGIN_FAIL, LOGIN_LOADING, LOGIN_SUCCESS } from "../actions/types";
+import { LOGIN_FAIL, LOGIN_LOADING, LOGIN_SUCCESS, LOGOUT_ERROR, LOGOUT_LOADING, LOGOUT_SUCESS } from "../actions/types";
 import IAuthInitialState from "../interfaces/redux/states/IAuthInitialState";
 
 const initialState: IAuthInitialState = {
@@ -34,6 +34,25 @@ const authReducer = (state = initialState, action: any) => {
         isLoading: false,
         isAuth: false,
         errorMsg: "Login failed",
+      };
+    case LOGOUT_SUCESS:
+      return {
+        ...state,
+        user: null,
+        isAuth: false,
+        isLoading: false,
+        errorMsg: "",
+      };
+    case LOGOUT_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case LOGOUT_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        errorMsg: "Logout failed",
       };
     default:
       return state;

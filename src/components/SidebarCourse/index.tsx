@@ -26,6 +26,7 @@ import { Ellipsis } from "react-css-spinners";
 import { Card, LittleButtonSpans, SpanLink } from "../../styles/uiKit";
 import { AiFillEdit, AiFillPicture } from "react-icons/ai";
 import { getCurrentCourseAction } from "../../actions/courseAction";
+import isInstructor from "../../libs/isInstructor";
 
 const SidebarCourse = () => {
   const history = useHistory();
@@ -37,6 +38,8 @@ const SidebarCourse = () => {
   );
   const loading = useSelector((state: RootStore) => state.courses.isLoading);
   const currentUser = useSelector((state: RootStore) => state.auth.isLoading);
+  const user = useSelector((state: RootStore) => state.auth.user);
+  const isCurrentInstructor = currentCourse.isCurrentCourseInstructor;
 
   useEffect(() => {
     if (currentCourse) {
@@ -100,37 +103,49 @@ const SidebarCourse = () => {
 
   const sectionsBar = useMemo(() => {
     if (sections && !loading) {
-      return (
-        <DragDropContext onDragEnd={handleMovement}>
-          <Droppable droppableId="characters">
-            {(provided: any) => (
-              <Row
-                className="characters"
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {sections.map((item: ISection, index: number) => (
-                  <Draggable
-                    key={item._id}
-                    draggableId={item._id}
-                    index={index}
-                  >
-                    {(provided) => (
-                      <SectionWrapper
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <Section item={item} />
-                      </SectionWrapper>
-                    )}
-                  </Draggable>
-                ))}
-              </Row>
-            )}
-          </Droppable>
-        </DragDropContext>
-      );
+      if (isCurrentInstructor) {
+        return (
+          <DragDropContext onDragEnd={handleMovement}>
+            <Droppable droppableId="characters">
+              {(provided: any) => (
+                <Row
+                  className="characters"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {sections.map((item: ISection, index: number) => (
+                    <Draggable
+                      key={item._id}
+                      draggableId={item._id}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <SectionWrapper
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <Section item={item} />
+                        </SectionWrapper>
+                      )}
+                    </Draggable>
+                  ))}
+                </Row>
+              )}
+            </Droppable>
+          </DragDropContext>
+        );
+      } else {
+        return (
+          <Row>
+            {sections.map((item: ISection, index: number) => (
+              <SectionWrapper>
+                <Section item={item} />
+              </SectionWrapper>
+            ))}
+          </Row>
+        );
+      }
     } else
       return (
         <SideBarLoader>
@@ -153,16 +168,20 @@ const SidebarCourse = () => {
             }
             alt=""
           />
-          <input
-            type="file"
-            id="picture"
-            style={{ display: "none" }}
-            onChange={handleUploadPicture}
-          />
-          <LittleButtonSpans>
-            Upload Picture
-            <AiFillPicture />
-          </LittleButtonSpans>
+          {isCurrentInstructor && (
+            <>
+              <input
+                type="file"
+                id="picture"
+                style={{ display: "none" }}
+                onChange={handleUploadPicture}
+              />
+              <LittleButtonSpans>
+                Upload Picture
+                <AiFillPicture />
+              </LittleButtonSpans>
+            </>
+          )}
         </label>
       </ImageSideBar>
       <HeaderSidebar>
@@ -178,12 +197,14 @@ const SidebarCourse = () => {
       </HeaderSidebar>
 
       {sectionsBar}
-      <SidebarCourseAddButton>
-        <span onClick={() => dispatch(toggleModalAction(true, "newSection"))}>
-          <FontAwesomeIcon icon={faPlus} />
-          New Section
-        </span>
-      </SidebarCourseAddButton>
+      {isCurrentInstructor && (
+        <SidebarCourseAddButton>
+          <span onClick={() => dispatch(toggleModalAction(true, "newSection"))}>
+            <FontAwesomeIcon icon={faPlus} />
+            New Section
+          </span>
+        </SidebarCourseAddButton>
+      )}
     </SidebarCourseWrapper>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { selectActivityAction } from "../../actions/courseAction";
 import { getActivityById } from "../../api/courseApi";
@@ -11,11 +11,14 @@ import Materials from "./Materials";
 import Video from "./Video";
 import Assignment from "./Assignment";
 import Submissions from "./Submissions";
+import { RootStore } from "../../store";
+import isInstructor from "../../libs/isInstructor";
 
 const ActivityPage = () => {
   const params: { activityId: string } = useParams();
   const [activity, setActivity] = useState<IActivity | undefined>();
   const dispatch = useDispatch();
+
 
   const getActivityData = async () => {
     const activityData: IActivity = await getActivityById(params.activityId);

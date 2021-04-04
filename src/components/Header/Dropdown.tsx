@@ -1,5 +1,7 @@
 import React, { memo, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { logoutAction } from "../../actions/authActions";
 import IUser from "../../interfaces/IUser";
 import "./style.scss";
 
@@ -9,6 +11,8 @@ interface IDropdownProps {
 }
 
 const Dropdown = ({ menu, user }: IDropdownProps) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const dropdownMenu = useMemo(() => {
     switch (menu) {
       case "auth":
@@ -35,7 +39,14 @@ const Dropdown = ({ menu, user }: IDropdownProps) => {
                 <li>Account Settings</li>
                 <li>Refer a Friend</li>
                 <li>Help</li>
-                <li>Logout</li>
+                <li
+                  onClick={async () => {
+                    await dispatch(logoutAction());
+                    history.push("/");
+                  }}
+                >
+                  Logout
+                </li>
               </ul>
             </div>
           </>

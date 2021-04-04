@@ -427,3 +427,18 @@ export const getAllSubmissionByCourse = async (courseId: string) => {
     return null;
   }
 };
+
+export const getAllActivitiesCurrentStudent = async () => {
+  try {
+    const axiosConfig: {} = {
+      method: "get",
+      url: `${config.BE_URI}/activities/student/me`,
+    };
+    const resp = await axios(axiosConfig);
+    const { activities } = await resp.data;
+    return activities;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};

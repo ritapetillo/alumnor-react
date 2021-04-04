@@ -1,7 +1,7 @@
 import IUser from "../../IUser";
 
 interface IAuthInitialState {
-  user?: IUser | {};
+  user?: IUser | {} | null;
   isAuth: boolean;
   isLoading: boolean;
   errorMsg: string;

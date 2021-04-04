@@ -17,9 +17,10 @@ const CourseDetails = () => {
   const history = useHistory();
   const isEditing = useSelector((state: RootStore) => state.courses.isEditing);
   const dispatch = useDispatch();
+  const isCurrentInstructor = currentCourse.isCurrentCourseInstructor;
 
   const componentToLoad = useMemo(() => {
-    if (isEditing) {
+    if (isEditing && isCurrentInstructor) {
       return (
         <>
           <IconsEditViewWrapper>
@@ -34,13 +35,17 @@ const CourseDetails = () => {
       return (
         <>
           <IconsEditViewWrapper>
-            <AiFillSetting
-              onClick={() => dispatch(toggleEditCourseMode(true))}
-            />
+            {isCurrentInstructor && (
+              <AiFillSetting
+                onClick={() => dispatch(toggleEditCourseMode(true))}
+              />
+            )}
+
             <FiShare
               onClick={() => history.push(`/view/courses/${currentCourse._id}`)}
             />
           </IconsEditViewWrapper>
+
           <CourseDetailsView />
         </>
       );

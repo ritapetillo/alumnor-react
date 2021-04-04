@@ -8,6 +8,9 @@ interface ICourseInitialState {
   cursesAsInstructor: [ICourse] | [] | "";
   newSection?: string | "";
   isEditing: boolean;
+  studentActivities: IActivity[] | [];
+  activitiesLoading: boolean;
+  errorMsgActivities: string | null;
 }
 
 export interface ISection {
@@ -32,6 +35,7 @@ export interface ICourse {
   liveSchedule?: [Date];
   sections?: [string];
   category: string;
+  isCurrentCourseInstructor: boolean;
 }
 
 export interface IActivity {

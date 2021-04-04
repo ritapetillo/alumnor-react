@@ -32,7 +32,7 @@ const Course = () => {
   useEffect(() => {
     const { id }: any = params;
     if (id) {
-      dispatch(getCurrentCourseAction(id));
+      dispatch(getCurrentCourseAction(id, currentUser));
     }
   }, [params.courseId, modalStatus, currentUser]);
 

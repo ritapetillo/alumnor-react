@@ -4,6 +4,7 @@ import courseReducer from "./courseReducer";
 import modalReducer from "./modalReducer";
 import sidebarReducer from "./sidebarReducer";
 import themeReducer from "./themeReducer";
+import publicReducer from "./publicReducer";
 import { withReduxStateSync } from "redux-state-sync";
 import feedsReducer from "./feedsReducer";
 
@@ -14,4 +15,5 @@ export default combineReducers({
   modal: modalReducer,
   sidebar: sidebarReducer,
   feeds: feedsReducer,
+  public: publicReducer,
 });

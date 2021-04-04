@@ -56,11 +56,13 @@ const Sidebar = () => {
             Favorites
           </ButtonSidebar>
         </NavLink>
-        {user.role !== "student" && (
-          <ButtonSidebar>
-            <FontAwesomeIcon icon={faUsers} />
-            My Students
-          </ButtonSidebar>
+        {user && user.role !== "student" && (
+          <NavLink to="/students" activeClassName="active">
+            <ButtonSidebar>
+              <FontAwesomeIcon icon={faUsers} />
+              My Students
+            </ButtonSidebar>
+          </NavLink>
         )}
         <ButtonSidebar>
           <FontAwesomeIcon icon={faEnvelope} />

@@ -8,6 +8,9 @@ import {
   GET_CURRENT_SECTION,
   SELECT_ACTIVITY,
   SET_COURSE_EDIT_MODE,
+  STUDENT_ACTIVITIES_SUCCESS,
+  STUDENT_ACTIVITIES_LOADING,
+  STUDENT_ACTIVITIES_ERROR,
 } from "../actions/types";
 import { CourseDispachTypes } from "../interfaces/redux/actions/course";
 import ICourseInitialState from "../interfaces/redux/states/ICourseInitialState";
@@ -22,13 +25,15 @@ const initialState: ICourseInitialState = {
   cursesAsInstructor: [],
   newSection: "section",
   isEditing: false,
+  studentActivities: [],
+  activitiesLoading: false,
+  errorMsgActivities: null,
 };
 
 const courseReducer = (
   state = initialState,
   { type, payload }: CourseDispachTypes
 ) => {
- 
   switch (type) {
     case COURSE_LOADING:
       return {
@@ -83,6 +88,26 @@ const courseReducer = (
         ...state,
         isEditing: payload,
       };
+
+    case STUDENT_ACTIVITIES_SUCCESS:
+      return {
+        ...state,
+        studentActivities: payload,
+        activitiesLoading: false,
+        errorMsgActivities: null,
+      };
+    case STUDENT_ACTIVITIES_LOADING:
+      return {
+        ...state,
+        activitiesLoading: true,
+      };
+    case STUDENT_ACTIVITIES_ERROR:
+      return {
+        ...state,
+        activitiesLoading: false,
+        errorMsgActivities: "There was an error loading the activities",
+      };
+
     case COURSE_ERROR:
       return {
         ...state,
