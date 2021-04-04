@@ -8,8 +8,10 @@ import {
   GET_CURRENT_SECTION,
   SELECT_ACTIVITY,
   SET_COURSE_EDIT_MODE,
+  STUDENT_ACTIVITIES_SUCCESS,
+  STUDENT_ACTIVITIES_ERROR,
+  STUDENT_ACTIVITIES_LOADING,
 } from "../../../actions/types";
-import IAuthInitialState from "../states/IAuthInitialState";
 import { IActivity, ICourse, ISection } from "../states/ICourseInitialState";
 
 export interface CourseLoading {
@@ -53,6 +55,18 @@ export interface ToggleEditMode {
   payload: boolean;
 }
 
+export interface GetStudentActivities {
+  type: typeof STUDENT_ACTIVITIES_SUCCESS;
+  payload: IActivity[];
+}
+export interface StudentActivitiesError {
+  type: typeof STUDENT_ACTIVITIES_ERROR;
+  payload: string;
+}
+export interface StudentActivitiesLoading {
+  type: typeof STUDENT_ACTIVITIES_LOADING;
+  payload: null;
+}
 export type CourseDispachTypes =
   | CourseLoading
   | CourseError
@@ -62,4 +76,8 @@ export type CourseDispachTypes =
   | CreateNewSection
   | GetCurrentSection
   | SelectActivity
-  | ToggleEditMode;
+  | ToggleEditMode
+  | GetStudentActivities
+  | GetStudentActivities
+  | StudentActivitiesError
+  | StudentActivitiesLoading;

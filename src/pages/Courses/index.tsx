@@ -12,6 +12,7 @@ import { Card, SwitchRoles } from "../../styles/uiKit";
 import { CoursePage, CoursePageMain } from "./courses.elements";
 import Loader from "react-loader-spinner";
 import { getCurrentUserCoursesAsInstructorAction } from "../../actions/courseAction";
+import withDashSidebar from "../../HOC/withDashSidebar";
 
 const Courses = () => {
   const [role, setRole] = useState(roles.STUDENT);
@@ -23,47 +24,35 @@ const Courses = () => {
     dispatch(getCurrentUserCoursesAsInstructorAction());
   }, []);
 
-  
-  
   const currentBoard = useMemo(() => {
     if (role === roles.STUDENT) {
-      return <CourseList  type={roles.STUDENT} />;
+      return <CourseList type={roles.STUDENT} />;
     } else {
-      return (
-        <CourseList
-        
-          type={roles.INSTRUCTOR}
-        />
-      );
+      return <CourseList type={roles.INSTRUCTOR} />;
     }
   }, [role]);
 
   return (
-    <>
-      <CoursePage>
-        <Sidebar />
-        <CoursePageMain>
-          <Row>
-            <CenteredRow>
-              <SwitchRoles
-                className={role === roles.STUDENT ? "active" : ""}
-                onClick={() => setRole(roles.STUDENT)}
-              >
-                Student{" "}
-              </SwitchRoles>
-              <SwitchRoles
-                className={role === roles.INSTRUCTOR ? "active" : ""}
-                onClick={() => setRole(roles.INSTRUCTOR)}
-              >
-                Instructor
-              </SwitchRoles>
-            </CenteredRow>
-          </Row>
-          {currentBoard}
-        </CoursePageMain>
-      </CoursePage>
-    </>
+    <CoursePageMain>
+      <Row>
+        <CenteredRow>
+          <SwitchRoles
+            className={role === roles.STUDENT ? "active" : ""}
+            onClick={() => setRole(roles.STUDENT)}
+          >
+            Student{" "}
+          </SwitchRoles>
+          <SwitchRoles
+            className={role === roles.INSTRUCTOR ? "active" : ""}
+            onClick={() => setRole(roles.INSTRUCTOR)}
+          >
+            Instructor
+          </SwitchRoles>
+        </CenteredRow>
+      </Row>
+      {currentBoard}
+    </CoursePageMain>
   );
 };
 
-export default Courses;
+export default withDashSidebar(Courses);

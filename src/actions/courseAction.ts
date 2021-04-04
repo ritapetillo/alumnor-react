@@ -8,6 +8,9 @@ import {
   GET_CURRENT_USER_COURSES_AS_INSTRUCTOR,
   SELECT_ACTIVITY,
   SET_COURSE_EDIT_MODE,
+  STUDENT_ACTIVITIES_ERROR,
+  STUDENT_ACTIVITIES_LOADING,
+  STUDENT_ACTIVITIES_SUCCESS,
 } from "./types";
 import axios from "axios";
 import { CourseDispachTypes } from "../interfaces/redux/actions/course";
@@ -18,11 +21,14 @@ import {
   getCourseById,
   createANewSession,
   getActivityById,
+  getAllActivitiesCurrentStudent,
 } from "../api/courseApi";
 import {
   IActivity,
   ISection,
 } from "../interfaces/redux/states/ICourseInitialState";
+import isInstructor from "../libs/isInstructor";
+import IUser from "../interfaces/IUser";
 export const createNewCourseAction = (data: {}) => async (
   dispatch: Dispatch<CourseDispachTypes>
 ) => {
@@ -71,15 +77,23 @@ export const getCurrentUserCoursesAsInstructorAction = () => async (
   }
 };
 
-export const getCurrentCourseAction = (id: string) => async (
+export const getCurrentCourseAction = (id: string, user?: IUser) => async (
   dispatch: Dispatch<CourseDispachTypes>
 ) => {
   try {
     dispatch({
       type: COURSE_LOADING,
     });
-    const course = await getCourseById(id);
+    let course = await getCourseById(id);
     if (!course) throw Error;
+    if (user) {
+      const isCurrentCourseInstructor = isInstructor(user, course);
+      course = {
+        ...course,
+        isCurrentCourseInstructor,
+      };
+    }
+
     dispatch({
       type: GET_CURRENT_COURSE,
       payload: course,
@@ -165,11 +179,33 @@ export const selectActivityAction = (id: string) => async (
   }
 };
 
-export const toggleEditCourseMode = (status:boolean) => async (
+export const toggleEditCourseMode = (status: boolean) => async (
   dispatch: Dispatch<CourseDispachTypes>
 ) => {
   dispatch({
     type: SET_COURSE_EDIT_MODE,
     payload: status,
   });
+};
+
+export const getStudentActivities = () => async (
+  dispatch: Dispatch<CourseDispachTypes>
+) => {
+  try {
+    dispatch({
+      type: STUDENT_ACTIVITIES_LOADING,
+      payload: null,
+    });
+    const activities = await getAllActivitiesCurrentStudent();
+    if (!activities) throw Error;
+    dispatch({
+      type: STUDENT_ACTIVITIES_SUCCESS,
+      payload: activities,
+    });
+  } catch (err) {
+    dispatch({
+      type: STUDENT_ACTIVITIES_ERROR,
+      payload: "There was an error loading your activities as student",
+    });
+  }
 };

@@ -9,6 +9,9 @@ interface IUser {
   dateBirth?: Date;
   verified?: boolean;
   role: string;
+  enrollments: [{
+    courseId:string
+  }]
   zoom: {
     zoomId?: string;
     zoomEmail?: string;

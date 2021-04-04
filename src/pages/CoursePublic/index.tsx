@@ -18,6 +18,7 @@ import IUser from "../../interfaces/IUser";
 import { Card } from "@material-ui/core";
 import { CourseCard } from "../../components/CourseList/courselist.elements";
 import moment from "moment";
+import { getCoursePublicPageDetails } from "../../actions/publicActions";
 
 const override = css`
   display: block;
@@ -29,17 +30,17 @@ const CoursePublic = () => {
   const params: { id: string } = useParams();
   const dispatch = useDispatch();
   const currentCourse = useSelector(
-    (state: RootStore) => state.courses.currentCourse
+    (state: RootStore) => state.public.currentCoursePage
   );
   const isLoading = useSelector((state: RootStore) => state.courses.isLoading);
   useEffect(() => {
     getCourseDetails();
   }, [params.id]);
   const getCourseDetails = async () => {
-    await dispatch(getCurrentCourseAction(params.id));
+    await dispatch(getCoursePublicPageDetails(params.id));
   };
 
-  if (isLoading)
+  if (isLoading || !currentCourse)
     return (
       <>
         <BarLoader

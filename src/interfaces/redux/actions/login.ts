@@ -1,4 +1,11 @@
-import { LOGIN_FAIL, LOGIN_LOADING, LOGIN_SUCCESS } from "../../../actions/types";
+import {
+  LOGIN_FAIL,
+  LOGIN_LOADING,
+  LOGIN_SUCCESS,
+  LOGOUT_ERROR,
+  LOGOUT_LOADING,
+  LOGOUT_SUCESS,
+} from "../../../actions/types";
 import IAuthInitialState from "../states/IAuthInitialState";
 
 export interface LoginLoading {
@@ -11,5 +18,21 @@ export interface LoginSuccess {
 export interface LoginFail {
   type: typeof LOGIN_FAIL;
 }
+export interface LogoutLoading {
+  type: typeof LOGOUT_LOADING;
+}
+export interface LogoutSuccess {
+  type: typeof LOGOUT_SUCESS;
+  payload: null;
+}
+export interface LogoutFail {
+  type: typeof LOGOUT_ERROR;
+}
 
-export type LoginDispachTypes = LoginLoading | LoginSuccess | LoginFail;
+export type LoginDispachTypes =
+  | LoginLoading
+  | LoginSuccess
+  | LoginFail
+  | LogoutFail
+  | LogoutLoading
+  | LogoutSuccess;

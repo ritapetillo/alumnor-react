@@ -10,7 +10,7 @@ import {
 } from "./singlefeed.elements";
 import parse from "html-react-parser";
 import { ImageRound, InputContainer, MenuAppearing } from "../../styles/uiKit";
-import { Row, RowColumn } from "../../styles/grid";
+import { Col, Row, RowColumn } from "../../styles/grid";
 import moment from "moment";
 import { BsThreeDots } from "react-icons/bs";
 import {
@@ -90,6 +90,7 @@ const SingleFeed = ({ feed }: ISingleFeed) => {
             Pinn
             <AiFillPushpin />
           </div>
+ 
         </FeedsMenuAppearing>
       );
     }

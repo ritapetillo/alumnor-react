@@ -3,11 +3,26 @@ import axios from "./axios";
 
 export const loginApi = async (credentials: {}) => {
   try {
-    console.log(config);
     const axiosConfig: {} = {
       method: "post",
       url: `${config.BE_URI}/auth/login`,
       data: credentials,
+    };
+    const res = await axios(axiosConfig);
+    const data = await res.data;
+    if (data) return data;
+    else return null;
+  } catch (err) {
+    return null;
+  }
+};
+
+export const logoutApi = async () => {
+  try {
+    const axiosConfig: {} = {
+      method: "post",
+      url: `${config.BE_URI}/auth/logout`,
+      data: "",
     };
     const res = await axios(axiosConfig);
     const data = await res.data;
@@ -52,16 +67,29 @@ export const getCurrentUrl = async (currentUrl: string) => {
 
 export const linkUserToZoom = async () => {
   try {
-    
     const axiosConfig: {} = {
       method: "put",
       url: `${config.BE_URI}/auth/zoom/link-account`,
-      data: ""
+      data: "",
     };
     const res = await axios(axiosConfig);
     const data = await res.data;
     if (data) return data;
     else return null;
+  } catch (err) {
+    return null;
+  }
+};
+
+export const getAllStudentsPerInstructor = async (id: string) => {
+  try {
+    const axiosConfig: {} = {
+      method: "get",
+      url: `${config.BE_URI}/students/instructor/${id}`,
+    };
+    const res = await axios(axiosConfig);
+    const { users } = res.data;
+    return users;
   } catch (err) {
     return null;
   }

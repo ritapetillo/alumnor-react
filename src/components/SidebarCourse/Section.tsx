@@ -56,6 +56,7 @@ const Section = ({ item }: SectionProps) => {
   const currentCourse: ICourse = useSelector(
     (state: RootStore) => state.courses.currentCourse
   );
+  const isCurrentInstructor = currentCourse.isCurrentCourseInstructor;
 
   useEffect(() => {
     setTitle(item.title);
@@ -63,7 +64,6 @@ const Section = ({ item }: SectionProps) => {
   }, []);
 
   useEffect(() => {
-    console.log("changed");
     setTitle(item.title);
     if (item.activities) {
       setActivities(item.activities);
@@ -145,27 +145,31 @@ const Section = ({ item }: SectionProps) => {
   } else {
     return (
       <CardSection>
-        <ButtonAdd>
-          <div onClick={() => dispatch(getCurrentSectionAction(item))}>
-            <div className="icon-settings">
-              <FontAwesomeIcon
-                icon={faTrash}
-                onClick={() => hanldeDeleteSection()}
-              />
+        {isCurrentInstructor && (
+          <ButtonAdd>
+            <div onClick={() => dispatch(getCurrentSectionAction(item))}>
+              <div className="icon-settings">
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={() => hanldeDeleteSection()}
+                />
+              </div>
+              <div className="icon-settings">
+                <FontAwesomeIcon icon={faEdit} onClick={() => setEdit(!edit)} />
+              </div>{" "}
+              <div className="icon-settings">
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  onClick={() =>
+                    dispatch(toggleModalAction(true, "newActivity"))
+                  }
+                />
+              </div>
             </div>
-            <div className="icon-settings">
-              <FontAwesomeIcon icon={faEdit} onClick={() => setEdit(!edit)} />
-            </div>{" "}
-            <div className="icon-settings">
-              <FontAwesomeIcon
-                icon={faPlus}
-                onClick={() => dispatch(toggleModalAction(true, "newActivity"))}
-              />
-            </div>
-          </div>
 
-          <FontAwesomeIcon className="more-icon" icon={faEllipsisV} />
-        </ButtonAdd>
+            <FontAwesomeIcon className="more-icon" icon={faEllipsisV} />
+          </ButtonAdd>
+        )}
         {sectionHeader}
         {isOpen && (
           <DragDropContext onDragEnd={handleMovement}>

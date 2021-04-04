@@ -27,6 +27,7 @@ const CourseList = ({ type }: CourseListProps) => {
   const coursesInstructor = useSelector(
     (state: RootStore) => state.courses.cursesAsInstructor
   );
+  const currentUser = useSelector((state: RootStore) => state.auth.user);
   useEffect(() => {
     dispatch(getCurrentUserCoursesAsInstructorAction());
   }, []);
@@ -42,13 +43,17 @@ const CourseList = ({ type }: CourseListProps) => {
   );
   const Courses = useMemo(() => {
     if (type === roles.INSTRUCTOR) {
-      return coursesInstructor.map((course: ICourse) => (
+      return coursesInstructor?.map((course: ICourse) => (
         <Col lg={4} md={6} sm={12}>
           <Coursecard course={course} />
         </Col>
       ));
     } else {
-      return <></>;
+      return currentUser.enrollments?.map((enrollment: any) => (
+        <Col lg={4} md={6} sm={12}>
+          <Coursecard course={enrollment.courseId} />
+        </Col>
+      ));
     }
   }, [type, modalStatus, coursesInstructor]);
 
