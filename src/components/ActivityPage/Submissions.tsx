@@ -1,7 +1,8 @@
 import { DropzoneArea } from "material-ui-dropzone";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IActivity } from "../../interfaces/redux/states/ICourseInitialState";
 import { Row, RowColumn } from "../../styles/grid";
+import moment from "moment";
 import {
   Input,
   InputContainer,
@@ -20,16 +21,19 @@ import {
   uploadSubmissionDocuments,
 } from "../../api/courseApi";
 import { useParams } from "react-router";
-import { isSubmitted } from "../../libs/submissions";
+import { findSubmission, isSubmitted } from "../../libs/submissions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../store";
 import { AiOutlineFileDone } from "react-icons/ai";
 import { selectActivityAction } from "../../actions/courseAction";
+import { FaMarker } from "react-icons/fa";
 
 interface ISubmission {
   edit: boolean;
   activity?: IActivity;
   refreshActivity: () => void;
+  grade?: string;
+  createdAt?: Date;
 }
 
 const Submissions = ({ activity, edit, refreshActivity }: ISubmission) => {
@@ -39,8 +43,17 @@ const Submissions = ({ activity, edit, refreshActivity }: ISubmission) => {
   const inputLink = useRef<any>();
   const params: { id: string; activityId: string } = useParams();
   const currentUser = useSelector((state: RootStore) => state.auth.user);
-
+  const [studentSubmission, setStudentSubmission] = useState<
+    ISubmission | undefined
+  >();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (activity && activity.type === "assignment") {
+      const submission = findSubmission(currentUser._id, activity);
+      setStudentSubmission(submission);
+    }
+  }, [activity]);
 
   const handleUpload = async (files: any) => {
     const newUploads = uploads;
@@ -103,7 +116,18 @@ const Submissions = ({ activity, edit, refreshActivity }: ISubmission) => {
       {isSubmitted(currentUser._id, activity) ? (
         <SubmissionDoneWrap>
           <AiOutlineFileDone />
-          <h4>Submitted</h4>
+          <h4>
+            Submitted on{" "}
+            {studentSubmission &&
+              moment(studentSubmission.createdAt).format("MM/DD/YYYY hh:mm a")}
+          </h4>
+          {studentSubmission && studentSubmission.grade && (
+            <>
+              {" "}
+              <FaMarker />
+              <h4>Graded: {studentSubmission && studentSubmission.grade}</h4>
+            </>
+          )}
         </SubmissionDoneWrap>
       ) : (
         <SubmissionWrap>
