@@ -59,7 +59,7 @@ const CoursePublic = () => {
           <CoursePageRow>
             <Col sm={6}>
               <h1>{currentCourse.title}</h1>
-              {currentCourse.description && parse(currentCourse.description)}
+              {currentCourse.description && parse(currentCourse?.description)}
               <span>
                 Created by{" "}
                 {currentCourse?.instructors?.map(
@@ -77,8 +77,10 @@ const CoursePublic = () => {
               <h3>Course Highlights</h3>
               {currentCourse.highlights}
               <h3>Schedule Description</h3>
-              {currentCourse.scheduleDescription &&
-                parse(currentCourse.scheduleDescription)}
+
+              {currentCourse.scheduleDescription
+                ? parse(currentCourse?.scheduleDescription)
+                : ""}
             </CoursePageCard>
           </Col>
         </CoursePageWrapBottom>
