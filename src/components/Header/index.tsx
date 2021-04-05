@@ -10,6 +10,7 @@ import Dropdown from "./Dropdown";
 import userEvent from "@testing-library/user-event";
 import { getCurrentUserCoursesAsInstructorAction } from "../../actions/courseAction";
 import { toggleModalAction } from "../../actions/modalActions";
+import { useHistory } from "react-router";
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
@@ -18,10 +19,15 @@ const Header = () => {
   const auth = useSelector((state: RootStore) => state.auth);
   const modalStatus = useSelector((state: RootStore) => state.modal.isOpen);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getCurrentUserAction());
   }, []);
+
+  const handleDrop = (bool: boolean) => {
+    setShowAuthDrop(bool);
+  };
 
   const authSection = useMemo(() => {
     if (!auth.isAuth) {
@@ -45,7 +51,9 @@ const Header = () => {
           >
             <img src={auth.user?.picture} alt="" />
           </div>
-          {showAuthDrop && <Dropdown menu={"auth"} user={auth?.user} />}
+          {showAuthDrop && (
+            <Dropdown menu={"auth"} user={auth?.user} handleDrop={handleDrop} />
+          )}
         </>
       );
     }
@@ -59,7 +67,13 @@ const Header = () => {
     <>
       <header className="header">
         <div className="header__navbar">
-          <div className="header__navbar-logo">Alumnor</div>
+          <div
+            style={{ cursor: "pointer" }}
+            className="header__navbar-logo"
+            onClick={() => history.push("/")}
+          >
+            Alumnor
+          </div>
           <span className="header__navbar-link">
             Browse
             <FontAwesomeIcon icon={faChevronDown} />

@@ -8,9 +8,10 @@ import "./style.scss";
 interface IDropdownProps {
   menu: string;
   user: IUser;
+  handleDrop: (bool: boolean) => void;
 }
 
-const Dropdown = ({ menu, user }: IDropdownProps) => {
+const Dropdown = ({ menu, user, handleDrop }: IDropdownProps) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const dropdownMenu = useMemo(() => {
@@ -43,6 +44,7 @@ const Dropdown = ({ menu, user }: IDropdownProps) => {
                   onClick={async () => {
                     await dispatch(logoutAction());
                     history.push("/");
+                    handleDrop(false);
                   }}
                 >
                   Logout

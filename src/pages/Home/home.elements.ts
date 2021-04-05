@@ -29,7 +29,7 @@ export const HomeWrapBottom = styled.div`
   padding: 50px;
   min-height: 30vh;
   background-color: ${(props) => props.theme.primaryColor};
-  color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.secondaryColor};
   h1 {
     font-size: 70px;
   }

@@ -17,6 +17,7 @@ import { RootStore } from "../../store";
 import isEnrolled from "../../libs/isEnrolled";
 import { toggleModalAction } from "../../actions/modalActions";
 import { useHistory } from "react-router-dom";
+import { getCurrentUserAction } from "../../actions/authActions";
 
 const CourseSideEnroll = ({ course }: { course: ICourse }) => {
   const [statusPayment, setStatusPayment] = useState(false);
@@ -65,7 +66,9 @@ const CourseSideEnroll = ({ course }: { course: ICourse }) => {
               if (details.status === "COMPLETED") {
                 setStatusPayment(true);
                 const enrollment = await completeEnrollment(details);
-                console.log(enrollment);
+                if (enrollment) {
+                  dispatch(getCurrentUserAction());
+                }
               }
               // OPTIONAL: Call your server to save the transaction
               // return fetch("/paypal-transaction-complete", {
