@@ -17,6 +17,22 @@ export const loginApi = async (credentials: {}) => {
   }
 };
 
+export const signupApi = async (credentials: {}) => {
+  try {
+    const axiosConfig: {} = {
+      method: "post",
+      url: `${config.BE_URI}/auth/signup`,
+      data: credentials,
+    };
+    const res = await axios(axiosConfig);
+    const data = await res.data;
+    if (data) return data;
+    else return null;
+  } catch (err) {
+    return null;
+  }
+};
+
 export const logoutApi = async () => {
   try {
     const axiosConfig: {} = {

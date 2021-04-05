@@ -17,7 +17,7 @@ export const getPublicCourseById = async (id: string) => {
 };
 
 
-export const getAllCourses= async () => {
+export const getAllPublicCourses= async () => {
   try {
     const axiosConfig: {} = {
       method: "get",

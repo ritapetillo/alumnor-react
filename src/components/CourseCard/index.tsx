@@ -1,11 +1,13 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { getCurrentUserCoursesAsInstructorAction } from "../../actions/courseAction";
 import { deleteCourse } from "../../api/courseApi";
 import { ICourse } from "../../interfaces/redux/states/ICourseInitialState";
+import isInstructor from "../../libs/isInstructor";
+import { RootStore } from "../../store";
 import { ImageCoverDiv, SpaceBetweenRow } from "../../styles/grid";
 import { MenuAppearing } from "../../styles/uiKit";
 import { CourseCard } from "../CourseList/courselist.elements";
@@ -14,6 +16,7 @@ const Coursecard = ({ course }: { course: ICourse | any }) => {
   const history = useHistory();
   const [menu, setMenu] = useState(false);
   const dispatch = useDispatch();
+  const currentUser = useSelector((state: RootStore) => state.auth.user);
 
   const handleDeleteCourse = async () => {
     try {
@@ -56,7 +59,11 @@ const Coursecard = ({ course }: { course: ICourse | any }) => {
       </ImageCoverDiv>
       <SpaceBetweenRow>
         <h4>{course.title}</h4>
-        <BsThreeDotsVertical onClick={() => setMenu(!menu)} />
+        {isInstructor(currentUser, course) ? (
+          <BsThreeDotsVertical onClick={() => setMenu(!menu)} />
+        ) : (
+          <div></div>
+        )}
       </SpaceBetweenRow>
       {menuAppearing}
     </CourseCard>

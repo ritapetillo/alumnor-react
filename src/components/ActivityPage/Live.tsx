@@ -130,7 +130,6 @@ const Live = ({ activity, refreshActivity }: ILiveProps) => {
           liveMeeting: zoomMeeting,
           text,
         };
-
         const activity = await editActivityById(
           params.id,
           params.activityId,
@@ -139,6 +138,8 @@ const Live = ({ activity, refreshActivity }: ILiveProps) => {
         console.log(activity);
         setSaved(true);
         await refreshActivity();
+      } else {
+        await handleConnectToZoom();
       }
     }
   };
