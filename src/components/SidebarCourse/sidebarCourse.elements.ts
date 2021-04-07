@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { SpaceBetweenRow } from "../../styles/grid";
 import { Card, CloudDetails } from "../../styles/uiKit";
 import { SideBar } from "../Sidebar/sidebar.elements";
 
@@ -92,7 +93,7 @@ export const CardSection = styled(Card)`
   .arrow-section {
     bottom: 3px;
     right: 25px;
-    color: ${(props) => props.theme.primaryColorLighter};
+    color: ${(props) => props.theme.text};
   }
 
   h4 {
@@ -236,4 +237,21 @@ export const SideBarLoader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const RowTitle = styled(SpaceBetweenRow)`
+  max-height: 50px;
+  position: relative;
+
+  span {
+    padding: 0 0px !important;
+    margin: 0;
+  }
+  svg {
+    font-size: 25px;
+    cursor: pointer;
+    &:hover {
+      transform: translateY(1px);
+    }
+  }
 `;

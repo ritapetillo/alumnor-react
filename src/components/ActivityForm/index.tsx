@@ -32,6 +32,8 @@ import {
 } from "../CreateCourseForm/createCourseForm.elements";
 import { RootStore } from "../../store";
 import { createANewActivity } from "../../api/courseApi";
+import { useHistory } from "react-router";
+import { HistoryOutlined } from "@material-ui/icons";
 
 const ActivityForm = () => {
   const [stepNumber, setStepNumber] = useState(0);
@@ -41,6 +43,7 @@ const ActivityForm = () => {
   const currentSection = useSelector(
     (state: RootStore) => state.courses.currentSection
   );
+  const history = useHistory();
 
   const goForward = () => {
     setStepNumber(stepNumber + 1);
@@ -59,7 +62,10 @@ const ActivityForm = () => {
     const courseId = currentSection.courseId;
     const sectionId = currentSection._id;
     const activity = await createANewActivity(courseId, sectionId, data);
-    if (activity) dispatch(toggleModalAction(false, ""));
+    if (activity) {
+      dispatch(toggleModalAction(false, ""));
+      history.push(`/courses/${courseId}/${activity._id}`);
+    }
   };
 
   const handleSelectActivity = (selected: string) => {

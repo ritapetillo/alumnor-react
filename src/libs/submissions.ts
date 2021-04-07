@@ -18,7 +18,6 @@ export const isSubmittedSimple = (
     const submitted = activity.submissions.some(
       (sub: any) => sub.userId === userId
     );
-    console.log(submitted);
     return submitted;
   }
 };

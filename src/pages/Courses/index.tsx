@@ -35,20 +35,22 @@ const Courses = () => {
   return (
     <CoursePageMain>
       <Row>
-        <CenteredRow>
-          <SwitchRoles
-            className={role === roles.STUDENT ? "active" : ""}
-            onClick={() => setRole(roles.STUDENT)}
-          >
-            Student{" "}
-          </SwitchRoles>
-          <SwitchRoles
-            className={role === roles.INSTRUCTOR ? "active" : ""}
-            onClick={() => setRole(roles.INSTRUCTOR)}
-          >
-            Instructor
-          </SwitchRoles>
-        </CenteredRow>
+        {roleUser !== "student" && (
+          <CenteredRow>
+            <SwitchRoles
+              className={role === roles.STUDENT ? "active" : ""}
+              onClick={() => setRole(roles.STUDENT)}
+            >
+              Student{" "}
+            </SwitchRoles>
+            <SwitchRoles
+              className={role === roles.INSTRUCTOR ? "active" : ""}
+              onClick={() => setRole(roles.INSTRUCTOR)}
+            >
+              Instructor
+            </SwitchRoles>
+          </CenteredRow>
+        )}
       </Row>
       {currentBoard}
     </CoursePageMain>

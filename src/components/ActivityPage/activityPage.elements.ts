@@ -58,6 +58,10 @@ export const IconsEditViewWrapper = styled.div`
   svg {
     margin-left: 10px;
   }
+  .delete {
+    font-size: 18px;
+    color: darkred;
+  }
 `;
 
 export const LinksWrapper = styled(Row)`

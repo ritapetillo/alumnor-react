@@ -4,7 +4,7 @@ import IUser from "../../interfaces/IUser";
 import { SpanLink, Table } from "../../styles/uiKit";
 
 interface IStudentsTable {
-  students: IUser[];
+  students: IUser[] | undefined;
 }
 
 const StudentsTable = ({ students }: IStudentsTable) => {

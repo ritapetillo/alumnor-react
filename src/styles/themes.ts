@@ -2,7 +2,7 @@ export const lightTheme = {
   primaryColor: "rgb(253, 253, 253)",
   primaryColorLighter: "hsla(0, 2%, 91%, 0.75)",
   secondaryColor: "rgb(12, 47, 69)",
-  text: "#b7b9b5",
+  text: "#808080",
   textDarker: "rgb(137, 136, 135)",
   textSecondary: "rgb(12, 47, 69)",
   toggleBorder: "#FFF",

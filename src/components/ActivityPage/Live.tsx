@@ -83,6 +83,7 @@ const Live = ({ activity, refreshActivity }: ILiveProps) => {
     const lesson = await editActivityById(params.id, params.activityId, data);
     setSaved(true);
     await refreshActivity();
+     handleEdit();
   };
 
   const handleEditLive = async () => {

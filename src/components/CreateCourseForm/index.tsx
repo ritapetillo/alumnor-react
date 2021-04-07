@@ -28,6 +28,7 @@ const CreateCourseForm = () => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const dispatch = useDispatch();
+  const titleRef = useRef<HTMLInputElement>(null);
 
   const goForward = () => {
     setStepNumber(stepNumber + 1);
@@ -59,11 +60,15 @@ const CreateCourseForm = () => {
               It's ok if you can't think of a good title now. You can change it
               later.
             </p>
+
             <InputWrapper>
               <InputCourse
+                ref={titleRef}
+                id="title"
                 type="text"
                 placeholder="Title"
                 onChange={(e) => setTitle(e.target.value)}
+                onClick={() => console.log(titleRef.current)}
               />
             </InputWrapper>
           </>

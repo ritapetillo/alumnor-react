@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getCurrentCourseAction } from "../../actions/courseAction";
+import { getAllStudentsPerCourse } from "../../api/userApi";
 import { IActivity } from "../../interfaces/redux/states/ICourseInitialState";
 import {
   filteredActivitiesFromSections,
@@ -26,11 +27,11 @@ const CourseDetailsView = () => {
   const dispatch = useDispatch();
   const params: { id: string } = useParams();
 
-
   useEffect(() => {
     if (currentCourseSections) {
       getAssignments();
       getLiveClasses();
+    
     }
   }, [currentCourseSections]);
 
@@ -45,6 +46,8 @@ const CourseDetailsView = () => {
     const live = filteredActivitiesFromSections(currentCourseSections, "live");
     setUpcomingLive(live);
   };
+
+
   return (
     <CourseDetailsWrapper>
       <Row>

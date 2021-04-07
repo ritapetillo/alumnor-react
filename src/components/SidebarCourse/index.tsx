@@ -4,9 +4,16 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { EventHandler, memo, useEffect, useMemo, useState } from "react";
+import React, {
+  EventHandler,
+  memo,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useHistory, useParams } from "react-router";
-import { Row } from "../../styles/grid";
+import { Row, SpaceBetweenRow } from "../../styles/grid";
 import {
   SidebarCourseWrapper,
   SidebarCourseAddButton,
@@ -14,6 +21,7 @@ import {
   ImageSideBar,
   HeaderSidebar,
   SideBarLoader,
+  RowTitle,
 } from "./sidebarCourse.elements";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,10 +31,25 @@ import { editCourse, uploadCoursePicture } from "../../api/courseApi";
 import Section from "./Section";
 import { ISection } from "../../interfaces/redux/states/ICourseInitialState";
 import { Ellipsis } from "react-css-spinners";
-import { Card, LittleButtonSpans, SpanLink } from "../../styles/uiKit";
-import { AiFillEdit, AiFillPicture } from "react-icons/ai";
+import {
+  Card,
+  LittleButtonSpans,
+  MenuAppearing,
+  SpanLink,
+} from "../../styles/uiKit";
+import {
+  AiFillEdit,
+  AiFillPicture,
+  AiFillDelete,
+  AiFillSetting,
+} from "react-icons/ai";
 import { getCurrentCourseAction } from "../../actions/courseAction";
 import isInstructor from "../../libs/isInstructor";
+import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
+import { MenuCourseWrapper } from "../MenuCourse/menucourse.elements";
+import MenuCourse from "../MenuCourse";
+import { isNull } from "node:util";
+import useOnClickOutside from "../../customHooks/useClickOutisde";
 
 const SidebarCourse = () => {
   const history = useHistory();
@@ -40,6 +63,8 @@ const SidebarCourse = () => {
   const currentUser = useSelector((state: RootStore) => state.auth.isLoading);
   const user = useSelector((state: RootStore) => state.auth.user);
   const isCurrentInstructor = currentCourse.isCurrentCourseInstructor;
+  const [menu, setMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (currentCourse) {
@@ -53,7 +78,11 @@ const SidebarCourse = () => {
 
     // if (currentCourse) setSections(currentCourse.sections || []);
   }, []);
+  const handleCloseMenu = () => {
+    setMenu(false);
+  };
 
+  useOnClickOutside(menuRef, handleCloseMenu);
   const moveInArray = function (
     arr: [] | [{}],
     from: number,
@@ -154,6 +183,11 @@ const SidebarCourse = () => {
       );
   }, [loading, sections, currentUser, currentCourse]);
 
+  const menuAppearing = useMemo(() => {
+    if (menu) {
+      return <MenuCourse handleClose={handleCloseMenu} ref={menuRef} />;
+    } else return "";
+  }, [menu, menuRef]);
   return (
     <SidebarCourseWrapper>
       <Row className="arrow" onClick={() => history.push(`/courses`)}>
@@ -185,15 +219,19 @@ const SidebarCourse = () => {
         </label>
       </ImageSideBar>
       <HeaderSidebar>
-        <SpanLink
-          onClick={() => {
-            dispatch(getCurrentCourseAction(currentCourse._id));
-            history.push(`/courses/${currentCourse._id}/main`);
-          }}
-          style={{ textDecoration: "none" }}
-        >
-          {currentCourse?.title}
-        </SpanLink>
+        <RowTitle>
+          <SpanLink
+            onClick={() => {
+              dispatch(getCurrentCourseAction(currentCourse._id));
+              history.push(`/courses/${currentCourse._id}/main`);
+            }}
+            style={{ textDecoration: "none" }}
+          >
+            {currentCourse?.title}
+          </SpanLink>
+          <HiOutlineDotsCircleHorizontal onClick={() => setMenu(!menu)} />
+          {menuAppearing}
+        </RowTitle>
       </HeaderSidebar>
 
       {sectionsBar}
