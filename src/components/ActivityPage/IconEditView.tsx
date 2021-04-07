@@ -19,7 +19,6 @@ import { deleteActivity } from "../../api/courseApi";
 import isInstructor from "../../libs/isInstructor";
 import { RootStore } from "../../store";
 import { IconsEditViewWrapper } from "./activityPage.elements";
-import "react-popper-tooltip/dist/styles.css";
 import { FaEdit } from "react-icons/fa";
 import ReactTooltip from "react-tooltip";
 
@@ -80,8 +79,8 @@ const IconEditView = ({
               <FontAwesomeIcon
                 icon={faTrash}
                 onClick={() => handleDeleteAction()}
-                  data-tip="Delete Activity"
-                  className="delete"
+                data-tip="Delete Activity"
+                className="delete"
               />
             </span>
             <span>
