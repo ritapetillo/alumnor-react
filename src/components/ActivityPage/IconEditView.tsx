@@ -16,7 +16,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { getCurrentCourseAction } from "../../actions/courseAction";
 import { deleteActivity } from "../../api/courseApi";
-import isInstructor from "../../libs/isInstructor";
 import { RootStore } from "../../store";
 import { IconsEditViewWrapper } from "./activityPage.elements";
 import { FaEdit } from "react-icons/fa";
