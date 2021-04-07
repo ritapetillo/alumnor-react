@@ -133,6 +133,7 @@ const Materials = ({ activity, refreshActivity, task }: IMaterialProps) => {
       setSaved(true);
     }
     await refreshActivity();
+    handleEdit();
   };
 
   const handleDeleteFile = async (upload: any) => {

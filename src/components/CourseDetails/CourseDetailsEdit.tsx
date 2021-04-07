@@ -56,6 +56,7 @@ const CourseDetailsEdit = () => {
 
   return (
     <CourseDetailsEditWrapper>
+      <h2>Course Settings</h2>
       <Row>
         <Col sm={12}>
           <RowColumn>

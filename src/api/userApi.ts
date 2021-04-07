@@ -110,3 +110,18 @@ export const getAllStudentsPerInstructor = async (id: string) => {
     return null;
   }
 };
+
+
+export const getAllStudentsPerCourse= async (id: string) => {
+  try {
+    const axiosConfig: {} = {
+      method: "get",
+      url: `${config.BE_URI}/students/course/${id}`,
+    };
+    const res = await axios(axiosConfig);
+    const { users } = res.data;
+    return users;
+  } catch (err) {
+    return null;
+  }
+};

@@ -417,7 +417,7 @@ export const getAllSubmissionByCourse = async (courseId: string) => {
     const axiosConfig: {} = {
       method: "get",
 
-      url: `${config.BE_URI}/submissions/${courseId}`,
+      url: `${config.BE_URI}/submissions/course/${courseId}`,
     };
     const resp = await axios(axiosConfig);
     const { submissions } = await resp.data;
@@ -437,6 +437,21 @@ export const getAllActivitiesCurrentStudent = async () => {
     const resp = await axios(axiosConfig);
     const { activities } = await resp.data;
     return activities;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+const vieeAllSubmissionsByCourse = async (courseId: string) => {
+  try {
+    const axiosConfig: {} = {
+      method: "get",
+      url: `${config.BE_URI}/submissions/course/${courseId}`,
+    };
+    const resp = await axios(axiosConfig);
+    const { submissions } = await resp.data;
+    return submissions;
   } catch (err) {
     console.log(err);
     return null;

@@ -21,7 +21,7 @@ export const CreateCourseWrap = styled.div`
   }
   .arrow-bottom {
     position: absolute;
-    bottom: 40%;
+    bottom: 10%;
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -48,6 +48,7 @@ export const InputCourse = styled(Input)`
   box-shadow: none;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.textSecondary};
+  z-index: 2;
 
   border-color: transparent;
 
@@ -55,8 +56,6 @@ export const InputCourse = styled(Input)`
     border-color: ${(props) => props.theme.secondaryColor};
   }
 `;
-
-
 
 export const TextAreaCourse = styled(TextArea)`
   width: 100%;

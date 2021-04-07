@@ -30,7 +30,7 @@ const CourseFeeds = () => {
   }, []);
   useEffect(() => {
     dispatch(getAllCourseFeeds(params.id));
-  }, [modalStatus, modalStatus]);
+  }, [modalStatus]);
 
   return (
     <CourseFeedsWrap>

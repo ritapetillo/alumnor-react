@@ -64,6 +64,7 @@ const Video = ({ activity, refreshActivity }: IVideoProps) => {
       setSaved(true);
     }
     await refreshActivity();
+     handleEdit();
   };
 
   /////use memo/////////

@@ -36,7 +36,12 @@ const Dashboard = () => {
     getAllActivities();
     if (studentActivities) {
       let live = studentActivities
-        .filter((activity: IActivity) => activity.type === "live")
+        .filter(
+          (activity: IActivity) =>
+            activity.type === "live" &&
+            activity?.liveMeeting?.start_time &&
+            moment(activity.liveMeeting.start_time).isAfter(Date.now())
+        )
         .sort(
           (a: any, b: any) =>
             Number(new Date(a.liveMeeting?.start_time)) -
@@ -45,7 +50,12 @@ const Dashboard = () => {
         .slice(0, 4);
 
       let assignments = studentActivities
-        .filter((activity: IActivity) => activity.type === "assignment")
+        .filter(
+          (activity: IActivity) =>
+            activity.type === "assignment" &&
+            activity.deadline &&
+            moment(activity.deadline).isAfter(Date.now())
+        )
         .sort((a: any, b: any) => {
           const date1: Date = new Date(a.deadline);
           const date2: Date = new Date(b.deadline);

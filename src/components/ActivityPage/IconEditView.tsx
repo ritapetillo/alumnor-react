@@ -19,6 +19,9 @@ import { deleteActivity } from "../../api/courseApi";
 import isInstructor from "../../libs/isInstructor";
 import { RootStore } from "../../store";
 import { IconsEditViewWrapper } from "./activityPage.elements";
+import "react-popper-tooltip/dist/styles.css";
+import { FaEdit } from "react-icons/fa";
+import ReactTooltip from "react-tooltip";
 
 interface IconEditViewProps {
   handleEdit: () => void;
@@ -64,27 +67,35 @@ const IconEditView = ({
     return (
       <IconsEditViewWrapper>
         {!state ? (
-          <FontAwesomeIcon
-            icon={faBars}
-            onClick={handleEdit}
-            className={"edit"}
-          />
+          <>
+            <span data-tip="Edit Activity">
+              <FaEdit onClick={handleEdit} className={"edit"} />
+            </span>
+
+            <ReactTooltip place="bottom" />
+          </>
         ) : (
           <>
-            {!saved ? (
+            <span>
               <FontAwesomeIcon
-                icon={faSave}
+                icon={faTrash}
+                onClick={() => handleDeleteAction()}
+                  data-tip="Delete Activity"
+                  className="delete"
+              />
+            </span>
+            <span>
+              <FontAwesomeIcon
+                icon={faCheck}
                 onClick={handleSave}
                 className={"edit"}
+                data-tip="Finish Editing"
               />
-            ) : (
-              <FontAwesomeIcon icon={faCheck} className={"edit"} />
-            )}
-            <FontAwesomeIcon icon={faWindowMaximize} onClick={handleEdit} />
-            <FontAwesomeIcon
-              icon={faTrash}
-              onClick={() => handleDeleteAction()}
-            />
+            </span>
+
+            {/* <FontAwesomeIcon icon={faWindowMaximize} onClick={handleEdit} /> */}
+
+            <ReactTooltip place="bottom" />
           </>
         )}
       </IconsEditViewWrapper>
