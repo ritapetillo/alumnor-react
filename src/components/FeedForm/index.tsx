@@ -11,7 +11,11 @@ import { createNewFeed } from "../../api/feedsApi";
 import { RootStore } from "../../store";
 import { IFeedsInitialState } from "../../interfaces/redux/states/IFeedsInitialState";
 import { toggleMainModalAction } from "../../actions/modalActions";
-import { createNewFeedAction, editAFeed } from "../../actions/feedActions";
+import {
+  createNewFeedAction,
+  editAFeed,
+  getAllCourseFeeds,
+} from "../../actions/feedActions";
 
 const isEdit = (type: string) => {
   return type === "edit";
@@ -36,6 +40,7 @@ const FeedForm = () => {
       const data = { text };
       dispatch(createNewFeedAction(params.id, data));
       dispatch(toggleMainModalAction(false));
+      dispatch(getAllCourseFeeds(params.id));
     } catch (err) {
       console.log(err);
     }
@@ -44,9 +49,9 @@ const FeedForm = () => {
   const handleEdit = async () => {
     try {
       const data = { text: text };
-      console.log(data);
       dispatch(editAFeed(params.id, selectedFeed._id, data));
       dispatch(toggleMainModalAction(false));
+      dispatch(getAllCourseFeeds(params.id));
     } catch (err) {
       console.log(err);
     }
@@ -66,7 +71,6 @@ const FeedForm = () => {
           value={text}
           modules={modules}
           onChange={(text) => {
-            console.log(text);
             setText(text);
           }}
         />

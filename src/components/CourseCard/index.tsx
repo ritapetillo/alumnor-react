@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 import { getCurrentUserCoursesAsInstructorAction } from "../../actions/courseAction";
 import { deleteCourse } from "../../api/courseApi";
 import { ICourse } from "../../interfaces/redux/states/ICourseInitialState";
-import isInstructor from "../../libs/isInstructor";
+import {isInstructorNoPopulate} from "../../libs/isInstructor";
 import { RootStore } from "../../store";
 import { ImageCoverDiv, SpaceBetweenRow } from "../../styles/grid";
 import { MenuAppearing } from "../../styles/uiKit";
@@ -59,7 +59,7 @@ const Coursecard = ({ course }: { course: ICourse | any }) => {
       </ImageCoverDiv>
       <SpaceBetweenRow>
         <h4>{course.title}</h4>
-        {isInstructor(currentUser, course) ? (
+        {isInstructorNoPopulate(currentUser, course) ? (
           <BsThreeDotsVertical onClick={() => setMenu(!menu)} />
         ) : (
           <div></div>

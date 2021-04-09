@@ -40,6 +40,7 @@ const Submissions = ({ activity, edit, refreshActivity }: ISubmission) => {
   const [uploads, setUploads] = useState<[] | any>([]);
   const [links, setLinks] = useState<string[]>([]);
   const [link, setLink] = useState("");
+  const [allowSubmit, setAllowSubmit] = useState(false);
   const inputLink = useRef<any>();
   const params: { id: string; activityId: string } = useParams();
   const currentUser = useSelector((state: RootStore) => state.auth.user);
@@ -61,27 +62,33 @@ const Submissions = ({ activity, edit, refreshActivity }: ISubmission) => {
     await setUploads(files);
   };
   const handleSave = async () => {
-    const data = {
-      links,
-    };
-    const submission = await submitAssignment(
-      params.id,
-      params.activityId,
-      data
-    );
-    if (submission) {
-      const formData = new FormData();
-      uploads.map((upload: any) => {
-        formData.append("files", upload);
-      });
-      const submit = await uploadSubmissionDocuments(
-        params.id,
-        submission._id,
-        formData
-      );
+    if (links.length == 0) {
+      await setLinks([link]);
+      setLink("");
     }
-    refreshActivity();
-    dispatch(selectActivityAction(params.activityId));
+    if (links.length > 0 || uploads.length > 0) {
+      const data = {
+        links,
+      };
+      const submission = await submitAssignment(
+        params.id,
+        params.activityId,
+        data
+      );
+      if (submission) {
+        const formData = new FormData();
+        uploads.map((upload: any) => {
+          formData.append("files", upload);
+        });
+        const submit = await uploadSubmissionDocuments(
+          params.id,
+          submission._id,
+          formData
+        );
+      }
+      refreshActivity();
+      dispatch(selectActivityAction(params.activityId));
+    }
   };
   const handleEnter = (e?: React.KeyboardEvent<HTMLInputElement> | "") => {
     if (e) {
@@ -139,16 +146,26 @@ const Submissions = ({ activity, edit, refreshActivity }: ISubmission) => {
                 type="text"
                 placeholder="http://"
                 onKeyUp={(e) => handleEnter(e)}
-                onChange={(e) => setLink(e.target.value)}
+                onChange={(e) => {
+                  setLink(e.target.value);
+                }}
               />
               <BsPlusCircleFill onClick={() => handleEnter("")} />
             </InputContainer>
             <h4>Links submitted: </h4>
             <Row> {linkDisplay}</Row>
 
-            <DropzoneArea onChange={(files: any) => handleUpload(files)} />
+            <DropzoneArea
+              onChange={(files: any) => {
+                handleUpload(files);
+              }}
+            />
           </RowColumn>
-          <ButtonDark onClick={handleSave}>Submit</ButtonDark>
+          {links.length > 0 || uploads.length > 0 ? (
+            <ButtonDark onClick={handleSave}>Submit</ButtonDark>
+          ) : (
+            <ButtonDark onClick={handleSave}>Add</ButtonDark>
+          )}
         </SubmissionWrap>
       )}
     </>

@@ -44,7 +44,6 @@ const IconEditView = ({
   const isCurrentInstructor = currentCourse.isCurrentCourseInstructor;
 
   useEffect(() => {
-    console.log("hjhjh");
   }, [params, currentCourse]);
 
   const handleDeleteAction = async () => {

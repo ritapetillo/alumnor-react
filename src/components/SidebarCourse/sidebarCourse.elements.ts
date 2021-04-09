@@ -13,6 +13,12 @@ export const SidebarCourseWrapper = styled(SideBar)`
   overflow-x: hidden;
   padding-bottom: 100px;
   position: relative;
+  top: 0;
+
+  ::-webkit-scrollbar {
+    width: 0; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
 
   .loader {
     height: 100vh;

@@ -11,6 +11,9 @@ import {
   STUDENT_ACTIVITIES_SUCCESS,
   STUDENT_ACTIVITIES_LOADING,
   STUDENT_ACTIVITIES_ERROR,
+  COURSE_SUBMISSIONS_SUCCESS,
+  COURSE_SUBMISSIONS_LOADING,
+  COURSE_SUBMISSIONS_ERROR,
 } from "../actions/types";
 import { CourseDispachTypes } from "../interfaces/redux/actions/course";
 import ICourseInitialState from "../interfaces/redux/states/ICourseInitialState";
@@ -28,6 +31,8 @@ const initialState: ICourseInitialState = {
   studentActivities: [],
   activitiesLoading: false,
   errorMsgActivities: null,
+  currentCourseSubmissions: {},
+  submissionsLoading: false,
 };
 
 const courseReducer = (
@@ -106,6 +111,24 @@ const courseReducer = (
         ...state,
         activitiesLoading: false,
         errorMsgActivities: "There was an error loading the activities",
+      };
+    case COURSE_SUBMISSIONS_SUCCESS:
+      return {
+        ...state,
+        currentCourseSubmissions: payload,
+        submissionsLoading: false,
+        errorMsg: "",
+      };
+    case COURSE_SUBMISSIONS_LOADING:
+      return {
+        ...state,
+        submissionsLoading: true,
+      };
+    case COURSE_SUBMISSIONS_ERROR:
+      return {
+        ...state,
+        currentCourseSubmissions: {},
+        errorMsg: "There was an error loading course submissions",
       };
 
     case COURSE_ERROR:

@@ -11,6 +11,8 @@ interface ICourseInitialState {
   studentActivities: IActivity[] | [];
   activitiesLoading: boolean;
   errorMsgActivities: string | null;
+  currentCourseSubmissions?: ISubmission[] | {};
+  submissionsLoading?: boolean;
 }
 
 export interface ISection {
@@ -120,5 +122,6 @@ export interface ISubmission {
   courseId: string;
   uploads: [string];
   links: [string];
+  checked: boolean;
 }
 export default ICourseInitialState;

@@ -68,10 +68,12 @@ const Sidebar = () => {
           <FontAwesomeIcon icon={faEnvelope} />
           Inbox
         </ButtonSidebar>
+         <NavLink to="/profile" activeClassName="active">
         <ButtonSidebar>
           <FontAwesomeIcon icon={faIdBadge} />
           Profile
         </ButtonSidebar>
+        </NavLink>
         <Divider />
         <ButtonSidebar>
           <FontAwesomeIcon icon={faCog} />

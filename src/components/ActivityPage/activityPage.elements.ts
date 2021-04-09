@@ -5,6 +5,12 @@ export const ActivityPageWrapper = styled.div`
   color: ${(props) => props.theme.textSecondary};
   background-color: ${(props) => props.theme.primaryColor};
   width: calc(100vw - 400px);
+  height: 100vh;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 0; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
   @media screen and (max-width: 768px) {
     width: 100%;
   }
@@ -61,6 +67,7 @@ export const IconsEditViewWrapper = styled.div`
   .delete {
     font-size: 18px;
     color: darkred;
+    margin-right: 20px;
   }
 `;
 

@@ -1,7 +1,8 @@
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { getCurrentCourseAction } from "../../actions/courseAction";
+import { getCurrentCourseAction, getCurrentSectionAction } from "../../actions/courseAction";
 import { getAllStudentsPerCourse } from "../../api/userApi";
 import { IActivity } from "../../interfaces/redux/states/ICourseInitialState";
 import {
@@ -28,25 +29,34 @@ const CourseDetailsView = () => {
   const params: { id: string } = useParams();
 
   useEffect(() => {
+  
     if (currentCourseSections) {
       getAssignments();
       getLiveClasses();
-    
     }
-  }, [currentCourseSections]);
+  }, [currentCourseSections,currentCourse]);
 
   const getAssignments = () => {
     const assignments = filteredActivitiesFromSections(
       currentCourseSections,
       "assignment"
     );
+  
     setLastAssignments(assignments);
   };
   const getLiveClasses = () => {
     const live = filteredActivitiesFromSections(currentCourseSections, "live");
-    setUpcomingLive(live);
+    const cronoLive = live
+      .sort(
+        (a: any, b: any) =>
+          Number(new Date(a.liveMeeting?.start_time)) -
+          Number(new Date(b.liveMeeting?.start_time))
+      )
+      .filter((live: IActivity) =>
+        moment(live.liveMeeting?.start_time).isAfter(Date.now())
+      );
+    setUpcomingLive(cronoLive);
   };
-
 
   return (
     <CourseDetailsWrapper>

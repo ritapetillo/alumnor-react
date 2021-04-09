@@ -6,8 +6,18 @@ const isInstructor = (currentUser: IUser, course: ICourse) => {
     const isTeacher = course.instructors.filter((instructor: any) => {
       return instructor._id === currentUser._id;
     });
-    console.log(isTeacher);
-    return isTeacher;
+   
+    return isTeacher.length > 0;
+  }
+};
+
+export const isInstructorNoPopulate = (currentUser: IUser, course: ICourse) => {
+  if (course.instructors && currentUser._id) {
+    const isTeacher = course.instructors.filter((instructor: any) => {
+      return instructor === currentUser._id;
+    });
+ 
+    return isTeacher.length > 0;
   }
 };
 export default isInstructor;

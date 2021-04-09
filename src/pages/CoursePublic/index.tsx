@@ -62,7 +62,7 @@ const CoursePublic = () => {
               {currentCourse.description && parse(currentCourse?.description)}
               <span>
                 Created by{" "}
-                {currentCourse?.instructors?.map(
+                {currentCourse?.instructors &&  currentCourse.instructors.map(
                   (instructor: IUser) =>
                     ` ${instructor.firstName} ${instructor.lastName} `
                 )}

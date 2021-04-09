@@ -5,6 +5,7 @@ export const CourseWrapper = styled.div`
   display: flex;
   flex-direction: row;
   background-color: ${(props) => props.theme.primaryColor};
+  color:${props=>props.theme.text}
   /* height: 100vh; */
   @media screen and (max-width: 768px) {
     flex-direction: column-reverse;

@@ -20,6 +20,7 @@ import Zoommw from "./pages/Zoommw";
 import CoursePublic from "./pages/CoursePublic";
 import Students from "./pages/Students";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 function App() {
   const theme = useSelector((state: RootStore) => state.theme);
@@ -39,6 +40,7 @@ function App() {
             <Route exact path="/courses/:id/:activityId" component={Course} />
             <Route exact path="/view/courses/:id/" component={CoursePublic} />
             <Route exact path="/students" component={Students} />
+            <Route exact path="/profile" component={Profile} />
           </div>
           {/* <Route exact path="/courses/:id/" component={Course} /> */}
         </div>

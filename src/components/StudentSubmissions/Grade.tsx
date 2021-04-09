@@ -6,9 +6,11 @@ import { editSubmission } from "../../api/courseApi";
 const Grade = ({
   grade,
   submissionId,
+  handleCheck
 }: {
   grade: any;
-  submissionId: string;
+    submissionId: string;
+  handleCheck?:()=>void
 }) => {
   const [edit, setEdit] = useState(false);
   const [graded, setGraded] = useState<string | undefined>();
@@ -20,6 +22,7 @@ const Grade = ({
   const handleSubmitGrade = async () => {
     const data = {
       grade: graded,
+      checked: true,
     };
     const submitGrade = await editSubmission(params.id, submissionId, data);
     if (submitGrade) {

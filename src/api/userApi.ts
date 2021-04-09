@@ -111,8 +111,7 @@ export const getAllStudentsPerInstructor = async (id: string) => {
   }
 };
 
-
-export const getAllStudentsPerCourse= async (id: string) => {
+export const getAllStudentsPerCourse = async (id: string) => {
   try {
     const axiosConfig: {} = {
       method: "get",

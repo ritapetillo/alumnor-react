@@ -1,7 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { getCurrentCourseAction } from "../../actions/courseAction";
+import {
+  getCourseSubmissions,
+  getCurrentCourseAction,
+} from "../../actions/courseAction";
 import SidebarCourse from "../../components/SidebarCourse";
 import { RootStore } from "../../store";
 import { CourseWrapper } from "./course.elements";
@@ -41,6 +44,7 @@ const Course = () => {
     if (id) {
       dispatch(getCurrentCourseAction(id, currentUser));
       getAllStudents();
+      dispatch(getCourseSubmissions(id));
     }
   }, [params.courseId, modalStatus, currentUser]);
 

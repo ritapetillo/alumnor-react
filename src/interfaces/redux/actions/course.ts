@@ -11,8 +11,16 @@ import {
   STUDENT_ACTIVITIES_SUCCESS,
   STUDENT_ACTIVITIES_ERROR,
   STUDENT_ACTIVITIES_LOADING,
+  COURSE_SUBMISSIONS_SUCCESS,
+  COURSE_SUBMISSIONS_ERROR,
+  COURSE_SUBMISSIONS_LOADING,
 } from "../../../actions/types";
-import { IActivity, ICourse, ISection } from "../states/ICourseInitialState";
+import {
+  IActivity,
+  ICourse,
+  ISection,
+  ISubmission,
+} from "../states/ICourseInitialState";
 
 export interface CourseLoading {
   type: typeof COURSE_LOADING;
@@ -52,20 +60,33 @@ export interface CourseError {
 }
 export interface ToggleEditMode {
   type: typeof SET_COURSE_EDIT_MODE;
-  payload: boolean;
+  payload?: boolean;
 }
 
 export interface GetStudentActivities {
   type: typeof STUDENT_ACTIVITIES_SUCCESS;
-  payload: IActivity[];
+  payload?: IActivity[];
 }
 export interface StudentActivitiesError {
   type: typeof STUDENT_ACTIVITIES_ERROR;
-  payload: string;
+  payload?: string;
 }
 export interface StudentActivitiesLoading {
   type: typeof STUDENT_ACTIVITIES_LOADING;
-  payload: null;
+  payload?: null;
+}
+
+export interface GetCourseSubmissions {
+  type: typeof COURSE_SUBMISSIONS_SUCCESS;
+  payload?: ISubmission[];
+}
+export interface CourseSubmissionsError {
+  type: typeof COURSE_SUBMISSIONS_ERROR;
+  payload?: string;
+}
+export interface CourseSubmissionsLoading {
+  type: typeof COURSE_SUBMISSIONS_LOADING;
+  payload?: null;
 }
 export type CourseDispachTypes =
   | CourseLoading
@@ -80,4 +101,7 @@ export type CourseDispachTypes =
   | GetStudentActivities
   | GetStudentActivities
   | StudentActivitiesError
-  | StudentActivitiesLoading;
+  | StudentActivitiesLoading
+  | CourseSubmissionsError
+  | CourseSubmissionsLoading
+  | GetCourseSubmissions;

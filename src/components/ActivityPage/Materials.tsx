@@ -29,13 +29,11 @@ import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import moment from "moment";
 import Submissions from "./Submissions";
-import { activities } from "../ActivityForm/activityTypes";
-import { isSubmitted } from "../../libs/submissions";
+
 import { RootStore } from "../../store";
 import StudentSubmission from "../StudentSubmissions";
 import ModalSubmission from "../ModalSubmissions";
 import { LittleButtonSpans } from "../../styles/uiKit";
-import { getCurrentCourseAction } from "../../actions/courseAction";
 
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);

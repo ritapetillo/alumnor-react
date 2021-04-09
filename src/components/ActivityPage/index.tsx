@@ -19,7 +19,6 @@ const ActivityPage = () => {
   const [activity, setActivity] = useState<IActivity | undefined>();
   const dispatch = useDispatch();
 
-
   const getActivityData = async () => {
     const activityData: IActivity = await getActivityById(params.activityId);
     dispatch(selectActivityAction(params.activityId));
@@ -36,7 +35,6 @@ const ActivityPage = () => {
 
   const activityToLoad = useMemo(() => {
     if (!activity) {
-      console.log("no activity");
       return "";
     }
     if (activity) {

@@ -58,9 +58,11 @@
     "redux-state-sync": "^3.1.2",
     "redux-thunk": "^2.3.0",
     "sass": "^1.32.8",
+    "socket.io-client": "^4.0.1",
     "styled-components": "^5.2.1",
     "typescript": "^4.2.3",
     "typescript-interface-generator": "0.0.6",
+    "use-socket.io-client": "^1.1.0",
     "web-vitals": "^1.1.1"
   },
   "scripts": {

@@ -199,7 +199,6 @@ export const getActivityById = async (id: string) => {
       url: `${config.BE_URI}/activities/${id}`,
     };
     const resp = await axios(axiosConfig);
-    console.log(resp);
     const { activity } = await resp.data;
     return activity;
   } catch (err) {
@@ -229,7 +228,6 @@ export const editActivityById = async (
   data: {}
 ) => {
   try {
-    console.log(data);
     const axiosConfig: {} = {
       method: "put",
       url: `${config.BE_URI}/activities/${courseId}/edit/${id}`,

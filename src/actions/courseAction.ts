@@ -11,6 +11,9 @@ import {
   STUDENT_ACTIVITIES_ERROR,
   STUDENT_ACTIVITIES_LOADING,
   STUDENT_ACTIVITIES_SUCCESS,
+  COURSE_SUBMISSIONS_ERROR,
+  COURSE_SUBMISSIONS_LOADING,
+  COURSE_SUBMISSIONS_SUCCESS,
 } from "./types";
 import axios from "axios";
 import { CourseDispachTypes } from "../interfaces/redux/actions/course";
@@ -22,6 +25,7 @@ import {
   createANewSession,
   getActivityById,
   getAllActivitiesCurrentStudent,
+  getAllSubmissionByCourse,
 } from "../api/courseApi";
 import {
   IActivity,
@@ -206,6 +210,28 @@ export const getStudentActivities = () => async (
     dispatch({
       type: STUDENT_ACTIVITIES_ERROR,
       payload: "There was an error loading your activities as student",
+    });
+  }
+};
+
+export const getCourseSubmissions = (id: string) => async (
+  dispatch: Dispatch<CourseDispachTypes>
+) => {
+  try {
+    dispatch({
+      type: COURSE_SUBMISSIONS_LOADING,
+      payload: null,
+    });
+    const submissions = await getAllSubmissionByCourse(id);
+
+    dispatch({
+      type: COURSE_SUBMISSIONS_SUCCESS,
+      payload: submissions,
+    });
+  } catch (err) {
+    dispatch({
+      type: COURSE_SUBMISSIONS_ERROR,
+      payload: "There was an error loading the submissions for this course",
     });
   }
 };
