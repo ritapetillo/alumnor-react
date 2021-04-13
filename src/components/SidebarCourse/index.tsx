@@ -60,17 +60,20 @@ const SidebarCourse = () => {
     (state: RootStore) => state.courses.currentCourse
   );
   const loading = useSelector((state: RootStore) => state.courses.isLoading);
-  const currentUser = useSelector((state: RootStore) => state.auth.isLoading);
+  const currentUserActive = useSelector(
+    (state: RootStore) => state.auth.isLoading
+  );
   const user = useSelector((state: RootStore) => state.auth.user);
   const isCurrentInstructor = currentCourse.isCurrentCourseInstructor;
   const [menu, setMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const currentUser = useSelector((state: RootStore) => state.auth.user);
 
   useEffect(() => {
     if (currentCourse) {
       setSections(currentCourse.sections);
     }
-  }, [currentCourse, loading, currentUser]);
+  }, [currentCourse, loading, currentUserActive, isCurrentInstructor]);
 
   useEffect(() => {
     setSections(currentCourse.sections);
@@ -123,7 +126,7 @@ const SidebarCourse = () => {
       formData.append("picture", picture);
       const upload = await uploadCoursePicture(currentCourse._id, formData);
       if (upload) {
-        dispatch(getCurrentCourseAction(currentCourse._id));
+        dispatch(getCurrentCourseAction(currentCourse._id, currentUser));
       }
     } catch (err) {
       console.log(err);
@@ -181,7 +184,7 @@ const SidebarCourse = () => {
           <Ellipsis className="loader" />
         </SideBarLoader>
       );
-  }, [loading, sections, currentUser, currentCourse]);
+  }, [loading, sections, currentUserActive, currentCourse]);
 
   const menuAppearing = useMemo(() => {
     if (menu) {
@@ -222,7 +225,7 @@ const SidebarCourse = () => {
         <RowTitle>
           <SpanLink
             onClick={() => {
-              dispatch(getCurrentCourseAction(currentCourse._id));
+              dispatch(getCurrentCourseAction(currentCourse._id, currentUser));
               history.push(`/courses/${currentCourse._id}/main`);
             }}
             style={{ textDecoration: "none" }}

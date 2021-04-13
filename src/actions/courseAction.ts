@@ -91,13 +91,13 @@ export const getCurrentCourseAction = (id: string, user?: IUser) => async (
     let course = await getCourseById(id);
     if (!course) throw Error;
     if (user) {
-      const isCurrentCourseInstructor = isInstructor(user, course);
+      console.log(user);
+      const isCurrentCourseInstructor = await isInstructor(user, course);
       course = {
         ...course,
         isCurrentCourseInstructor,
       };
     }
-
     dispatch({
       type: GET_CURRENT_COURSE,
       payload: course,

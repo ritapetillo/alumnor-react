@@ -139,7 +139,7 @@ const Section = ({ item }: SectionProps) => {
         </span>
       </div>
     );
-  }, [isOpen, edit, title, activities]);
+  }, [isOpen, edit, title, activities, isCurrentInstructor]);
   if (!item) {
     return <h1>No item</h1>;
   } else {

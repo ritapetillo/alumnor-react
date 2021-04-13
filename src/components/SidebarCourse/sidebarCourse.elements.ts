@@ -122,7 +122,7 @@ export const ButtonAdd = styled.span`
   cursor: pointer;
   position: absolute;
   top: 5px;
-  right: -8px;
+  right: -6px;
   width: fit-content;
   text-align: center;
   .more-icon {

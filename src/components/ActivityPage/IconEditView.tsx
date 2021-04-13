@@ -43,8 +43,7 @@ const IconEditView = ({
   );
   const isCurrentInstructor = currentCourse.isCurrentCourseInstructor;
 
-  useEffect(() => {
-  }, [params, currentCourse]);
+  useEffect(() => {}, [params, currentCourse]);
 
   const handleDeleteAction = async () => {
     try {
@@ -53,7 +52,7 @@ const IconEditView = ({
         params.activityId
       );
       if (activityToDelete) {
-        dispatch(getCurrentCourseAction(params.id));
+        dispatch(getCurrentCourseAction(params.id, currentUser));
         history.push(`/courses/${params.id}/main`);
       }
     } catch (err) {
