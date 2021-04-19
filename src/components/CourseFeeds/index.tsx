@@ -28,10 +28,10 @@ const CourseFeeds = () => {
   useEffect(() => {
     dispatch(getAllCourseFeeds(params.id));
   }, []);
-  // useEffect(() => {
-  //   console.log('submtted')
-  //   dispatch(getAllCourseFeeds(params.id));
-  // }, [modalStatus]);
+  useEffect(() => {
+    console.log("submtted");
+    dispatch(getAllCourseFeeds(params.id));
+  }, [modalStatus]);
 
   return (
     <CourseFeedsWrap>
