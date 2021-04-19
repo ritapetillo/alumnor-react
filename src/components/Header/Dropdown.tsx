@@ -1,3 +1,4 @@
+import { WindowScrollController } from "@fullcalendar/common";
 import React, { memo, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -27,9 +28,13 @@ const Dropdown = ({ menu, user, handleDrop }: IDropdownProps) => {
                 {user.firstName} {user.lastName}
               </h4>
               <h5>{user.role}</h5>
-              <button className="header__dropdown-profile-button" onClick={()=>{
-                history.push('/profile')
-                handleDrop(false)}}>
+              <button
+                className="header__dropdown-profile-button"
+                onClick={() => {
+                  history.push("/profile");
+                  handleDrop(false);
+                }}
+              >
                 View Profile
               </button>
             </div>
@@ -37,18 +42,23 @@ const Dropdown = ({ menu, user, handleDrop }: IDropdownProps) => {
             <div className="header__dropwdown-menu">
               <ul>
                 <Link to="/dashboard">
-                  <li onClick={()=>handleDrop(false)}>My Dashboard</li>
+                  <li onClick={() => handleDrop(false)}>My Dashboard</li>
                 </Link>
-                <li onClick={()=>{
-                history.push('/courses')
-                handleDrop(false)}}>My Courses</li>
+                <li
+                  onClick={() => {
+                    history.push("/courses");
+                    handleDrop(false);
+                  }}
+                >
+                  My Courses
+                </li>
                 <li>Account Settings</li>
                 <li>Refer a Friend</li>
                 <li>Help</li>
                 <li
                   onClick={async () => {
                     await dispatch(logoutAction());
-                    history.push("/");
+                    window.location.assign("/");
                     handleDrop(false);
                   }}
                 >
